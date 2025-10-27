@@ -1,0 +1,68 @@
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 2rem 0;
+}
+
+.media-row {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.media-card {
+  flex: 0 0 220px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  overflow: hidden;
+}
+
+.media-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.media-card h4,
+.media-card p {
+  padding: 0 1rem;
+}
+
+.media-card h4 {
+  font-size: 1.15rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.media-card h4 a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.media-card h4 a:hover {
+  color: #007bff;
+}
+
+.media-card p {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/actor-details.css">
+  <title><%= pageTitle %></title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <div class="container">
+    
+    <h1 class="ator-nome"><%= pessoa.nome %></h1>
+    <div class="actor-bio-box">
+      <h3>Detalhes Pessoais</h3>
+      <div class="bio-grid">
+        <strong class="bio-label">Data de Nasc.:</strong>
+        <span class="bio-value">
+          <%= pessoa.data_de_nascimento ? new Date(pessoa.data_de_nascimento).toLocaleDateString('pt-BR') : 'N/A' %>
+        </span>
+        
+        <strong class="bio-label">Local de Nasc.:</strong>
+        <span class="bio-value"><%= pessoa.local_de_nascimento %></span>
+        
+        <strong class="bio-label">Altura:</strong>
+        <span class="bio-value"><%= pessoa.altura ? pessoa.altura + 'm' : 'N/A' %></span>
+      </div>
+    </div>
+
+    <h3 class="filmografia-titulo">Filmografia</h3>
+    <div class="filmografia-list">
+      <% if (filmografia && filmografia.length > 0) { %>
+        <% filmografia.forEach(item => { %>
+          <div class="filme-card">
+            <span class="filme-titulo">
+              <a href="/movies/<%= item.id %>"><%= item.titulo %></a>
+            </span>
+            <span class="filme-personagem"><%= item.personagem %></span>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p>Nenhuma atuação encontrada para este ator.</p>
+      <% } %>
+    </div>
+
+    <a href="/atores" class="back-link">← Voltar para todos os atores</a>
+
+  </div>
+</body>
+</html>

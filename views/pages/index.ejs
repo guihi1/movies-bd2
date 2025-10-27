@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/home.css">
+  <title>
+    <%= pageTitle %>
+  </title>
+</head>
+
+<body>
+  <%- include('../partials/navbar') %>
+    <div class="container">
+      <h1>Página Inicial</h1>
+
+      <h2>Filmes</h2>
+
+      <div class="media-row">
+        <% if (movies && movies.length> 0) { %>
+          <% movies.forEach(movie=> { %>
+            <div class="media-card">
+              <h4>
+                <a href="/movies/<%= movie.id %>">
+                  <%= movie.titulo %>
+                </a>
+              </h4>
+              <p>
+                <%= movie.pais_de_origem %> (<%= movie.data_de_publicacao.getFullYear() %>)
+              </p>
+            </div>
+            <% }); %>
+              <% } else { %>
+                <p>Nenhum filme encontrado.</p>
+                <% } %>
+      </div>
+      <hr>
+    </div>
+</body>
+
+</html>

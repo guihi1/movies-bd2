@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <title>Ocorreu um Erro</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/error.css">
+</head>
+
+<body>
+  <%- include('../partials/navbar') %>
+    <div class="error-container">
+      <div class="error-code">
+        <%= typeof statusCode !=='undefined' ? statusCode : 'Erro' %>
+      </div>
+
+      <h1 class="error-message">
+        <%= typeof message !=='undefined' ? message : 'Oops! Algo deu errado.' %>
+      </h1>
+
+      <p class="error-description">
+        <%= typeof description !=='undefined' ? description
+          : 'Tente novamente mais tarde ou volte para a página inicial.' %>
+      </p>
+
+      <a href="/" class="home-link">Voltar para a Página Inicial</a>
+    </div>
+
+</body>
+
+</html>

@@ -1,93 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/movie-details.css" />
+    <title><%= pageTitle %></title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/movie-details.css">
-    <title>
-        <%= pageTitle %>
-        </title>
-</head>
-
-<body>
-    <%- include('../partials/navbar') %>
-      <div class="container">
-          <h1>
-        <%= filme.titulo %>
-      </h1>
-          <div class="media-details">
-              <p>
-                  <strong>Ano:</strong> 
-                  <%= filme.data_de_publicacao ? filme.data_de_publicacao.getFullYear() : 'N/A' %>
-                  </p>
-              <p>
-                  <strong>País:</strong>
+  <body>
+    <%- include('../partials/navbar') %>
+    <div class="container">
+      <h1><%= filme.titulo %></h1>
+      <div class="media-details">
+        <p>
+          <strong>Ano:</strong>
+          <%= filme.data_de_publicacao ? filme.data_de_publicacao.getFullYear()
+          : 'N/A' %>
+        </p>
+        <p>
+          <strong>País:</strong>
           <%= filme.pais_de_origem %>
         </p>
-              <p>
-                  <strong>Duração:</strong>
+        <p>
+          <strong>Duração:</strong>
           <%= filme.tempo_de_duracao %> minutos
-                 
         </p>
-              <p>
-                  <strong>Faturamento:</strong> $ <%= filme.faturamento %>
-                  </p>
-              <p>
-                  <strong>Faixa etária indicada:</strong>
+        <p><strong>Faturamento:</strong> $ <%= filme.faturamento %></p>
+        <p>
+          <strong>Faixa etária indicada:</strong>
           <%= filme.faixa_etaria_indicada %>
-                 
         </p>
-              <h3>Enredo</h3>
-              <p>
-          <%= filme.enredo %>
-        </p>
-            </div>
+        <h3>Enredo</h3>
+        <p><%= filme.enredo %></p>
+      </div>
 
       <h3 class="elenco-titulo">Elenco</h3>
       <div class="elenco-container">
-        <% if (atores && atores.length> 0) { %>
-          <% atores.forEach(ator=> { %>
-            <div class="ator-card">
-              <a href="/actors/<%= ator.id %>">
-                <span class="ator-nome">
-                  <%= ator.nome %>
-                </span>
-              </a>
-              <span class="ator-personagem">
-                <%= ator.personagem %>
-              </span>
-            </div>
-            <% }); %>
-              <% } else { %>
-                <p>Informações de elenco não disponíveis.</p>
-                <% } %>
+        <% if (atores && atores.length> 0) { %> <% atores.forEach(ator=> { %>
+        <div class="ator-card">
+          <a href="/actors/<%= ator.id %>">
+            <span class="ator-nome"> <%= ator.nome %> </span>
+          </a>
+          <span class="ator-personagem"> <%= ator.personagem %> </span>
+        </div>
+        <% }); %> <% } else { %>
+        <p>Informações de elenco não disponíveis.</p>
+        <% } %>
       </div>
       <h3 class="reviews-titulo">Avaliações</h3>
       <div class="reviews-container">
-        <% if (avaliacoes && avaliacoes.length> 0) { %>
-          <% avaliacoes.forEach(avaliacao=> { %>
-            <div class="review-card">
-              <div class="review-header">
-                <span class="review-user">
-                  <%= avaliacao.nome_usuario %>
-                </span>
-                <span class="review-nota">
-                  ★ <%= avaliacao.nota %>
-                </span>
-              </div>
-              <p class="review-comentario">
-                <%= avaliacao.comentario %>
-              </p>
-            </div>
-            <% }); %>
-              <% } else { %>
-                <p>Este filme ainda não possui avaliações.</p>
-                <% } %>
+        <% if (avaliacoes && avaliacoes.length> 0) { %> <%
+        avaliacoes.forEach(avaliacao=> { %>
+        <div class="review-card">
+          <div class="review-header">
+            <span class="review-user"> <%= avaliacao.nome_usuario %> </span>
+            <span class="review-nota"> ★ <%= avaliacao.nota %> </span>
+          </div>
+          <p class="review-comentario"><%= avaliacao.comentario %></p>
+        </div>
+        <% }); %> <% } else { %>
+        <p>Este filme ainda não possui avaliações.</p>
+        <% } %>
       </div>
-          <a href="/" class="back-link">← Voltar para a lista</a>
+      <a href="/" class="back-link">← Voltar para a lista</a>
     </div>
-</body>
-
+  </body>
 </html>

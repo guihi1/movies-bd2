@@ -19,7 +19,7 @@
 
       <h2>Filmes</h2>
 
-      <div class="media-row">
+      <div class="media-grid">
         <% if (movies && movies.length> 0) { %>
           <% movies.forEach(movie=> { %>
             <div class="media-card">
@@ -50,8 +50,11 @@
                   <%= show.nome %>
                 </a>
               </h4>
+              <% 
+                const anoFim = show.ano_de_fim ? show.ano_de_fim : 'Presente';
+              %>
               <p>
-                (<%= show.ano_de_inicio %>)
+                (<%= show.ano_de_inicio %> - <%= anoFim %>)
               </p>
             </div>
             <% }); %>

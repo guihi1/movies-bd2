@@ -8,7 +8,7 @@ export const showHomePage = async (req, res) => {
     ]);
     
     res.render('pages/index', {
-      pageTitle: 'Bem-vindo!',
+      pageTitle: 'RMGe',
       movies: movies,
       shows: shows
     });

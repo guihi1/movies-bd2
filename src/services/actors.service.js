@@ -32,51 +32,58 @@ export const findPersonByActorId = async (atorId) => {
   }
 };
 
-export const findMediaByActorId = async (atorId) => {
-  try {
-    const query = `
-      SELECT m.id, m.titulo, m.tipo, atu.personagem
-      FROM midia m
-      JOIN atuacao atu ON m.id = atu.midia_id
-      WHERE atu.ator_id = $1
-      ORDER BY m.data_de_publicacao DESC;
-    `;
-    const { rows } = await pool.query(query, [atorId]);
-    return rows;
-  } catch (error) {
-    console.error(`Erro ao buscar filmografia pelo ID do ator (${atorId}):`, error.stack);
-    throw error;
-  }
-};
-
 // export const findMediaByActorId = async (atorId) => {
 //   try {
 //     const query = `
-//       WITH filmografia_raw AS (
-//           SELECT m.id AS id_destino, m.nome AS titulo_principal, a.personagem, 'Filme' AS tipo_midia
-//           FROM atuacao a
-//           JOIN midia m ON a.midia_id = m.id
-//           LEFT JOIN episodio e ON m.id = e.midia_id 
-//           WHERE a.pessoa_id = $1 AND e.midia_id IS NULL
-          
-//           UNION ALL
-          
-//           SELECT s.id AS id_destino, s.nome AS titulo_principal, a.personagem, 'Serie' AS tipo_midia
-//           FROM atuacao a
-//           JOIN episodio e ON a.midia_id = e.midia_id 
-//           JOIN temporada t ON e.temporada_id = t.id
-//           JOIN serie s ON t.serie_id = s.id          
-//           WHERE a.pessoa_id = $1
-//       )
-//       SELECT * FROM filmografia_raw ORDER BY titulo_principal, tipo_midia DESC;
+//       SELECT m.id, m.titulo, m.tipo, atu.personagem
+//       FROM midia m
+//       JOIN atuacao atu ON m.id = atu.midia_id
+//       WHERE atu.ator_id = $1
+//       ORDER BY m.data_de_publicacao DESC;
 //     `;
-    
-//     // O array de parâmetros [$1] permanece o mesmo.
 //     const { rows } = await pool.query(query, [atorId]);
 //     return rows;
 //   } catch (error) {
 //     console.error(`Erro ao buscar filmografia pelo ID do ator (${atorId}):`, error.stack);
-//     // É uma boa prática lançar o erro para que o controller possa lidar com ele (ex: página 500)
 //     throw error;
 //   }
 // };
+
+export const findMediaByActorId = async (atorId) => {
+  try {
+    const query = `
+      SELECT 
+        m.id AS midia_id,
+        m.titulo,
+        m.tipo,
+        atu.personagem,
+        CASE 
+          WHEN m.tipo = 'Filme' THEN NULL
+          ELSE s.id
+        END AS serie_id,
+        CASE 
+          WHEN m.tipo = 'Filme' THEN NULL
+          ELSE s.nome
+        END AS serie_nome
+      FROM midia m
+      JOIN atuacao atu 
+        ON m.id = atu.midia_id
+      LEFT JOIN episodio e 
+        ON m.id = e.midia_id
+      LEFT JOIN temporada t 
+        ON e.temporada_id = t.id
+      LEFT JOIN serie s 
+        ON t.serie_id = s.id
+      WHERE atu.ator_id = $1
+      ORDER BY m.data_de_publicacao DESC;
+    `;
+    
+    // O array de parâmetros [$1] permanece o mesmo.
+    const { rows } = await pool.query(query, [atorId]);
+    return rows;
+  } catch (error) {
+    console.error(`Erro ao buscar filmografia pelo ID do ator (${atorId}):`, error.stack);
+    // É uma boa prática lançar o erro para que o controller possa lidar com ele (ex: página 500)
+    throw error;
+  }
+};

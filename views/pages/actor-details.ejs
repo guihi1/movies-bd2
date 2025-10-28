@@ -37,13 +37,16 @@
             <span class="filme-titulo">
               <% 
                 let mediaRoute = '/';
+                let mediaTitle = '';
                 if (item.tipo === 'Filme') {
-                  mediaRoute = '/movies/' + item.id;
+                  mediaRoute = '/movies/' + item.midia_id;
+                  mediaTitle = item.titulo;
                 } else if (item.tipo === 'Episódio de Série') {
-                  mediaRoute = '/shows/' + item.id;
+                  mediaRoute = '/shows/' + item.serie_id;
+                  mediaTitle = item.serie_nome || '(Série desconhecida)';
                 } 
               %>
-              <a href="<%= mediaRoute %>"><%= item.titulo %></a>
+              <a href="<%= mediaRoute %>"><%= mediaTitle %></a>
             </span>
             <span class="filme-personagem"><%= item.personagem %></span>
           </div>

@@ -18,7 +18,27 @@ export const findMovieById = async (id) => {
     console.error(`Erro ao buscar filme por ID (${id}):`, error.stack);
     throw error;
   }
-}
+};
+
+export const findShows = async () => {
+  try {
+    const { rows } = await pool.query(`SELECT * FROM serie ORDER BY nome`);
+    return rows;
+  } catch (error) {
+    console.error('Error fetching shows:', error.stack);
+    throw error;
+  }
+};
+
+export const findShowById = async (id) => {
+  try {
+    const { rows } = await pool.query(`SELECT * FROM serie WHERE id = $1`, [id]);
+    return rows[0] || null;
+  } catch (error) {
+    console.error(`Erro ao buscar serie por ID (${id}):`, error.stack);
+    throw error;
+  }
+};
 
 export const findActorsByMediaId = async (mediaId) => {
   try {
@@ -35,6 +55,33 @@ export const findActorsByMediaId = async (mediaId) => {
     return rows;
   } catch (error) {
     console.error(`Erro ao buscar atores por ID de mídia (${mediaId}):`, error.stack);
+    throw error;
+  }
+};
+
+export const findActorsByShowId = async (showId) => {
+  try {
+    const query = `
+      SELECT DISTINCT
+          P.id AS pessoa_id,
+          P.nome AS nome_ator,
+          P.data_de_nascimento,
+          A.personagem
+      FROM serie S
+      JOIN temporada T ON S.id = T.serie_id
+      JOIN episodio E ON T.id = E.temporada_id
+      JOIN midia M ON E.midia_id = M.id
+      JOIN atuacao A ON M.id = A.midia_id
+      JOIN ator ATR ON A.ator_id = ATR.id
+      JOIN pessoa P ON ATR.pessoa_id = P.id
+      WHERE S.id = $1
+      ORDER BY P.nome;
+    `;
+
+    const { rows } = await pool.query(query, [showId]);
+    return rows;
+  } catch (error) {
+    console.error(`Erro ao buscar atores por ID da série (${showId}):`, error.stack);
     throw error;
   }
 };

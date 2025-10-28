@@ -7,13 +7,14 @@ h2 {
   font-size: 1.75rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid #555555;
   padding-bottom: 0.5rem;
+  color: #ffffff;
 }
 
 hr {
   border: 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #555555;
   margin: 2rem 0;
 }
 
@@ -27,16 +28,16 @@ hr {
 
 .media-card {
   flex: 0 0 220px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  background-color: #3e3e3e;
+  /* Sombra adaptada para fundo escuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
   overflow: hidden;
 }
 
 .media-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
 }
 
 .media-card h4,
@@ -51,18 +52,19 @@ hr {
 }
 
 .media-card h4 a {
-  color: #333;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 .media-card h4 a:hover {
-  color: #007bff;
+  color: #f6c700;
 }
 
 .media-card p {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: #aaaaaa;
   margin-top: 0;
   margin-bottom: 1rem;
 }

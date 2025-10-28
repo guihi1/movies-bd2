@@ -37,6 +37,28 @@
                 <% } %>
       </div>
       <hr>
+
+      <h2>Séries</h2>
+
+      <div class="media-row">
+        <% if (shows && shows.length> 0) { %>
+          <% shows.forEach(show=> { %>
+            <div class="media-card">
+              <h4>
+                <a href="/shows/<%= show.id %>">
+                  <%= show.nome %>
+                </a>
+              </h4>
+              <p>
+                (<%= show.ano_de_inicio %>)
+              </p>
+            </div>
+            <% }); %>
+              <% } else { %>
+                <p>Nenhuma série encontrada.</p>
+                <% } %>
+      </div>
+      <hr>
     </div>
 </body>
 

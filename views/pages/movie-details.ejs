@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/movie-details.css" />
+    <link rel="stylesheet" href="/css/media-details.css" />
     <title><%= pageTitle %></title>
   </head>
 
@@ -39,7 +39,7 @@
       <div class="elenco-container">
         <% if (atores && atores.length> 0) { %> <% atores.forEach(ator=> { %>
         <div class="ator-card">
-          <a href="/actors/<%= ator.id %>">
+          <a href="/actors/<%= ator.id %>" class="ator-link">
             <span class="ator-nome"> <%= ator.nome %> </span>
           </a>
           <span class="ator-personagem"> <%= ator.personagem %> </span>

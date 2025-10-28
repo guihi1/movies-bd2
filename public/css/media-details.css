@@ -1,0 +1,237 @@
+/* ============================================== */
+/* 1. Detalhes da Mídia               */
+/* ============================================== */
+
+.media-details {
+  background-color: #3e3e3e;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
+}
+
+.media-details h3 {
+  margin-top: 1.5rem;
+  border-bottom: 2px solid #555555;
+  padding-bottom: 0.5rem;
+  color: #ffffff; 
+}
+
+.media-details p {
+  line-height: 1.6;
+  color: #cccccc; 
+}
+
+.a {
+
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: #5ab1ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* ============================================== */
+/* 2. Elenco                      */
+/* ============================================== */
+
+.elenco-titulo {
+  margin-top: 2rem;
+  font-size: 1.75rem;
+  border-bottom: 2px solid #555555;
+  padding-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.elenco-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .elenco-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .elenco-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ator-card {
+  background-color: #444444;
+  border: 1px solid #555555;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.ator-nome {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.ator-personagem {
+  color: #aaaaaa;
+  margin-top: 0.25rem;
+}
+
+.ator-personagem::before {
+  content: 'como ';
+  font-style: italic;
+  color: #999999;
+  margin-right: 0.25rem;
+}
+
+.ator-link {
+    color: #cccccc; 
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.ator-link:hover {
+    color: #f6c700;
+    text-decoration: underline;
+}
+
+/* ============================================== */
+/* 3. Reviews                     */
+/* ============================================== */
+
+.reviews-titulo {
+  font-size: 1.75rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #555555;
+  padding-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.reviews-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.review-card {
+  background-color: #444444;
+  border: 1px solid #555555;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px dashed #666666;
+  padding-bottom: 0.5rem;
+}
+
+.review-user {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.review-nota {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #f6c700; 
+}
+
+.review-comentario {
+  line-height: 1.6;
+  color: #cccccc;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ============================================== */
+/* 4. Temporadas e Episódios              */
+/* ============================================== */
+
+.temporadas-container {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #555555;
+}
+
+.temporada-titulo {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #555555;
+    padding-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.temporada-card {
+    background-color: #3e3e3e;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #555555;
+    border-radius: 6px;
+}
+
+.temporada-header {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f0f0f0;
+    margin-bottom: 0.75rem;
+}
+
+.episodios-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.episodio-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted #666666;
+}
+
+.episodio-item:last-child {
+    border-bottom: none;
+}
+
+.episodio-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.episodio-titulo {
+    font-weight: 500;
+    color: #cccccc;
+}
+
+.episodio-duracao {
+    font-size: 0.9rem;
+    color: #999999;
+    margin-top: 0.1rem;
+}
+
+.episodio-nota {
+    font-weight: bold;
+    color: #f6c700; 
+    font-size: 1rem;
+}

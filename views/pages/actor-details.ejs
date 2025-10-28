@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/actor-details.css">
   <title><%= pageTitle %></title>
 </head>
@@ -35,7 +35,15 @@
         <% filmografia.forEach(item => { %>
           <div class="filme-card">
             <span class="filme-titulo">
-              <a href="/movies/<%= item.id %>"><%= item.titulo %></a>
+              <% 
+                let mediaRoute = '/';
+                if (item.tipo === 'Filme') {
+                  mediaRoute = '/movies/' + item.id;
+                } else if (item.tipo === 'Episódio de Série') {
+                  mediaRoute = '/shows/' + item.id;
+                } 
+              %>
+              <a href="<%= mediaRoute %>"><%= item.titulo %></a>
             </span>
             <span class="filme-personagem"><%= item.personagem %></span>
           </div>
@@ -44,7 +52,6 @@
         <p>Nenhuma atuação encontrada para este ator.</p>
       <% } %>
     </div>
-
     <a href="/atores" class="back-link">← Voltar para todos os atores</a>
 
   </div>

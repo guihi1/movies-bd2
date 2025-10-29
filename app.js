@@ -2,6 +2,7 @@ import Express from 'express'
 import path from 'path';
 import pagesRoutes from './src/routes/pages.routes.js';
 import moviesRoutes from './src/routes/movies.routes.js';
+import episodesRoutes from './src/routes/episodes.routes.js'
 import showsRoutes from './src/routes/shows.routes.js';
 import actorsRoutes from './src/routes/actors.routes.js'
 import { fileURLToPath } from 'url';
@@ -18,6 +19,7 @@ app.use(Express.urlencoded({ extended: true }));
 app.use('/', pagesRoutes);
 app.use('/movies', moviesRoutes);
 app.use('/shows', showsRoutes);
+app.use('/shows', episodesRoutes);
 app.use('/actors', actorsRoutes);
 
 const PORT = process.env.PORT || 3000;

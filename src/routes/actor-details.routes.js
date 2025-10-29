@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { showActorPage } from '../controllers/actors.controller.js'
+import { showActorPage } from '../controllers/actor-details.controller.js'
 
 const router = Router();
 

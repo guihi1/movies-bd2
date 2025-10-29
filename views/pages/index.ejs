@@ -24,7 +24,7 @@
           <% movies.forEach(movie=> { %>
             <div class="media-card">
               <h4>
-                <a href="/movies/<%= movie.id %>">
+                <a href="/movie-details/<%= movie.id %>">
                   <%= movie.titulo %>
                 </a>
               </h4>
@@ -46,7 +46,7 @@
           <% shows.forEach(show=> { %>
             <div class="media-card">
               <h4>
-                <a href="/shows/<%= show.id %>">
+                <a href="/show-details/<%= show.id %>">
                   <%= show.nome %>
                 </a>
               </h4>

@@ -56,7 +56,7 @@
               </span>
               <span class="episodio-titulo">
                 <a
-                  href="/shows/<%= temporada.serie_id %>/episodes/<%= episodio.id %>"
+                  href="/show/<%= temporada.serie_id %>/episode/<%= episodio.id %>"
                 > 
                   <%= episodio.titulo %>
                 </a>
@@ -79,7 +79,7 @@
       <div class="elenco-container">
         <% if (atores && atores.length > 0) { %> <% atores.forEach(ator => { %>
         <div class="ator-card">
-          <a href="/actors/<%= ator.pessoa_id %>" class="ator-link">
+          <a href="/actor-details/<%= ator.pessoa_id %>" class="ator-link">
             <span class="ator-nome"> <%= ator.nome_ator %> </span>
           </a>
           <span class="ator-personagem"> <%= ator.personagem %> </span>

@@ -39,7 +39,7 @@
       <div class="elenco-container">
         <% if (atores && atores.length> 0) { %> <% atores.forEach(ator=> { %>
         <div class="ator-card">
-          <a href="/actors/<%= ator.id %>" class="ator-link">
+          <a href="/actor-details/<%= ator.id %>" class="ator-link">
             <span class="ator-nome"> <%= ator.nome %> </span>
           </a>
           <span class="ator-personagem"> <%= ator.personagem %> </span>

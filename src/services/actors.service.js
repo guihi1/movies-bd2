@@ -78,12 +78,10 @@ export const findMediaByActorId = async (atorId) => {
       ORDER BY m.data_de_publicacao DESC;
     `;
     
-    // O array de parâmetros [$1] permanece o mesmo.
     const { rows } = await pool.query(query, [atorId]);
     return rows;
   } catch (error) {
     console.error(`Erro ao buscar filmografia pelo ID do ator (${atorId}):`, error.stack);
-    // É uma boa prática lançar o erro para que o controller possa lidar com ele (ex: página 500)
     throw error;
   }
 };

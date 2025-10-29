@@ -74,10 +74,10 @@
                 let mediaRoute = '/';
                 let mediaTitle = '';
                 if (item.tipo === 'Filme') {
-                  mediaRoute = '/movies/' + item.midia_id;
+                  mediaRoute = '/movie-details/' + item.midia_id;
                   mediaTitle = item.titulo;
                 } else if (item.tipo === 'Episódio de Série') {
-                  mediaRoute = '/shows/' + item.serie_id;
+                  mediaRoute = '/show-details/' + item.serie_id;
                   mediaTitle = item.serie_nome || '(Série desconhecida)';
                 } 
               %>

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { showShowPage } from '../controllers/shows.controller.js'
+import { showShowPage } from '../controllers/show-details.controller.js'
 
 const router = Router();
 

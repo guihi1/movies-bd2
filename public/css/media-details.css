@@ -220,7 +220,18 @@
     color: #cccccc;
 }
 
-.episodio-duracao {
+.episodio-titulo a {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.episodio-titulo a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.episodio-details {
     font-size: 0.9rem;
     color: #999999;
     margin-top: 0.1rem;

@@ -15,23 +15,19 @@
       <div class="media-details">
         <p>
           <strong>Ano:</strong>
-          <%= serie.ano_de_inicio %>
-          <% if (serie.ano_de_fim) { %>
-            - <%= serie.ano_de_fim %>
-          <% } else { %>
-            - Presente
-          <% } %>
+          <%= serie.ano_de_inicio %> <% if (serie.ano_de_fim) { %> - <%=
+          serie.ano_de_fim %> <% } else { %> - Presente <% } %>
         </p>
         <p>
-          <strong>Nota Média:</strong> 
+          <strong>Nota Média:</strong>
           <%= parseFloat(serie.nota).toFixed(1) %> / 10
         </p>
         <p>
-          <strong>Temporadas:</strong> 
+          <strong>Temporadas:</strong>
           <%= serie.numero_de_temporadas %>
         </p>
         <p>
-          <strong>Faturamento:</strong> 
+          <strong>Faturamento:</strong>
           $ <%= serie.faturamento.toLocaleString('pt-BR') %>
         </p>
         <h3>Sinopse</h3>
@@ -40,56 +36,56 @@
 
       <div class="temporadas-container">
         <h3 class="temporada-titulo">Temporadas</h3>
-        
+
         <% if (temporadas && temporadas.length > 0) { %>
-          <% temporadas.forEach((temp, index) => { %>
-            <div class="temporada-card">
-              <div class="temporada-header">
-                Temporada <%= index + 1 %> 
-                (<%= temp.ano %>) - <%= temp.numero_de_episodios %> Episódios
-              </div>
-              
-              <ul class="episodios-lista">
-                <% if (temp.episodios && temp.episodios.length > 0) { %>
-                  <% temp.episodios.forEach(ep => { %>
-                    <li class="episodio-item">
-                      <div class="episodio-info">
-                        <span class="episodio-titulo">
-                          S<%= index + 1 %>E<%= ep.numero_episodio %>: <%= ep.titulo %>
-                        </span>
-                        <span class="episodio-duracao">
-                          Duração: <%= ep.tempo_de_duracao %> min
-                        </span>
-                      </div>
-                      <span class="episodio-nota">
-                        Nota: <%= parseFloat(ep.nota).toFixed(1) %>
-                      </span>
-                    </li>
-                  <% }); %>
-                <% } else { %>
-                    <li class="episodio-item">Episódios não disponíveis.</li>
-                <% } %>
-              </ul>
+        <% temporadas.forEach((temporada, index) => { %>
+        <div class="temporada-card">
+          <div class="temporada-header">
+            Temporada <%= index + 1 %> (<%= temporada.ano %>)
+            <div class="episodio-details">
+              <%= temporada.episodios.length %> episódio(s)
             </div>
-          <% }); %>
-        <% } else { %>
-          <p>Informações de temporadas e episódios não disponíveis.</p>
+          </div>
+
+          <ul class="episodios-lista">
+            <% if (temporada.episodios && temporada.episodios.length > 0) { %>
+            <% temporada.episodios.forEach((episodio, epIndex) => { %>
+            <li class="episodio-item">
+              <span class="episodio-details">
+                T<%= index + 1 %>:E<%= epIndex + 1 %>
+              </span>
+              <span class="episodio-titulo">
+                <a
+                  href="/shows/<%= temporada.serie_id %>/episodes/<%= episodio.id %>"
+                > 
+                  <%= episodio.titulo %>
+                </a>
+              </span>
+              <span class="episodio-details">
+                (<%= episodio.tempo_de_duracao %> min)
+              </span>
+            </li>
+            <% }); %> <% } else { %>
+            <li>Nenhum episódio encontrado para esta temporada.</li>
+            <% } %>
+          </ul>
+        </div>
+        <% }); %> <% } else { %>
+        <p>Informações de temporadas e episódios não disponíveis.</p>
         <% } %>
       </div>
-      
+
       <h3 class="elenco-titulo">Elenco</h3>
       <div class="elenco-container">
-        <% if (atores && atores.length > 0) { %> 
-          <% atores.forEach(ator => { %>
-            <div class="ator-card">
-              <a href="/actors/<%= ator.pessoa_id %>" class="ator-link"> 
-                <span class="ator-nome"> <%= ator.nome_ator %> </span>
-              </a>
-              <span class="ator-personagem"> <%= ator.personagem %> </span>
-            </div>
-          <% }); %> 
-        <% } else { %>
-          <p>Informações de elenco não disponíveis.</p>
+        <% if (atores && atores.length > 0) { %> <% atores.forEach(ator => { %>
+        <div class="ator-card">
+          <a href="/actors/<%= ator.pessoa_id %>" class="ator-link">
+            <span class="ator-nome"> <%= ator.nome_ator %> </span>
+          </a>
+          <span class="ator-personagem"> <%= ator.personagem %> </span>
+        </div>
+        <% }); %> <% } else { %>
+        <p>Informações de elenco não disponíveis.</p>
         <% } %>
       </div>
 

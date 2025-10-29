@@ -29,6 +29,41 @@
       </div>
     </div>
 
+    <!-- NOVA SEÇÃO: PREMIAÇÕES -->
+<h3 class="filmografia-titulo">Premiações</h3>
+<div class="filmografia-list">
+  <% if (premiacoes && premiacoes.length > 0) { %>
+    <% premiacoes.forEach(premio => { %>
+      <div class="filme-card">
+        <span class="filme-titulo">
+          <%= premio.nome_premio %>
+          <% if (premio.ano) { %> (<%= premio.ano %>) <% } %>
+        </span>
+        <span class="filme-personagem">
+          <% if (premio.personagem) { %>
+            <%= premio.personagem %>
+          <% } %>
+        </span>
+        <% if (premio.categoria || premio.organizacao || premio.descricao) { %>
+          <div class="premiacao-detalhes">
+            <% if (premio.categoria) { %>
+              <div><strong>Categoria:</strong> <%= premio.categoria %></div>
+            <% } %>
+            <% if (premio.organizacao) { %>
+              <div><strong>Organização:</strong> <%= premio.organizacao %></div>
+            <% } %>
+            <% if (premio.descricao) { %>
+              <div><strong>Descrição:</strong> <%= premio.descricao %></div>
+            <% } %>
+          </div>
+        <% } %>
+      </div>
+    <% }); %>
+  <% } else { %>
+    <p>Nenhuma premiação registrada para este ator.</p>
+  <% } %>
+</div>
+
     <h3 class="filmografia-titulo">Filmografia</h3>
     <div class="filmografia-list">
       <% if (filmografia && filmografia.length > 0) { %>

@@ -1,12 +1,13 @@
-import { findPersonByActorId, findMediaByActorId } from '../services/actors.service.js';
+import { findPersonByActorId, findMediaByActorId, findAwardsByActorId } from '../services/actors.service.js';
 
 export const showActorPage = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const [person, media] = await Promise.all([
+    const [person, media, premiacoes] = await Promise.all([
       findPersonByActorId(id),
-      findMediaByActorId(id)
+      findMediaByActorId(id),
+      findAwardsByActorId(id)
     ]);
 
     if (!person) {
@@ -16,6 +17,7 @@ export const showActorPage = async (req, res) => {
     res.render('pages/actor-details', {
       pessoa: person,
       filmografia: media,
+      premiacoes,
       pageTitle: person.nome
     });
 
@@ -24,3 +26,6 @@ export const showActorPage = async (req, res) => {
     res.status(500).render('pages/error', { message: 'Erro no servidor' });
   }
 };
+
+
+

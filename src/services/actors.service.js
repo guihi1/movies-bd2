@@ -87,3 +87,32 @@ export const findMediaByActorId = async (atorId) => {
     throw error;
   }
 };
+
+export const findAwardsByActorId = async (atorId) => {
+  try {
+    const query = `
+      SELECT 
+        pr.id AS premio_id,
+        pr.nome AS nome_premio,
+        pr.ano,
+        pr.categoria,
+        pr.organizacao,
+        pr.descricao,
+        ia.id AS indicado_id,
+        a.personagem
+      FROM premiacao pr
+      JOIN indicado_atuacao ia 
+        ON ia.premiacao_id = pr.id
+      JOIN atuacao a 
+        ON ia.atuacao_id = a.id
+      WHERE a.ator_id = $1
+      ORDER BY pr.ano DESC;
+    `;
+    const { rows } = await pool.query(query, [atorId]);
+    return rows;
+  } catch (error) {
+    console.error(`Erro ao buscar premiações pelo ID do ator (${atorId}):`, error.stack);
+    throw error;
+  }
+};
+

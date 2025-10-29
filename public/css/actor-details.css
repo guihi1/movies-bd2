@@ -44,6 +44,26 @@
 }
 
 /* ============================================== */
+/*    Premiações                                  */
+/* ============================================== */
+
+.premiacao-detalhes {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #dddddd;
+}
+
+.premiacao-detalhes div {
+  margin-bottom: 0.25rem;
+}
+
+.premiacao-detalhes strong {
+  color: #f6c700;
+  font-weight: 600;
+}
+
+
+/* ============================================== */
 /*    Filme/Série                                 */
 /* ============================================== */
 

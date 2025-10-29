@@ -16,7 +16,8 @@ body {
 
 .navbar {
   background-color: #202020;
-  padding: 0.9rem 0;
+  padding: 0.4rem 0;
+  border-top: 2px solid #202020;
   border-bottom: 3px solid #f6c700;
   width: 100%;
   box-sizing: border-box;
@@ -28,7 +29,7 @@ body {
   align-items: center;
 }
 
-.navbar-brand {
+/* .navbar-brand {
   font-size: 1.75rem;
   font-weight: bold;
   color: #ecf0f1;
@@ -37,9 +38,9 @@ body {
 }
 
 .navbar-brand:hover {
-  /* transform: scale(1.05); */
+  transform: scale(1.05);
   color: #f6c700;
-}
+} */
 
 .navbar-links {
   list-style: none;
@@ -52,7 +53,7 @@ body {
 .navbar-links a {
   color: #ecf0f1;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 500;
   padding-bottom: 5px;
   border-bottom: 2px solid transparent;
@@ -61,10 +62,18 @@ body {
 
 .navbar-links a:hover {
   color: #f6c700;
-  border-bottom-color: #f6c700;
+  /* border-bottom-color: #f6c700; */
+}
+
+.navbar-links li {
+  transition: transform 0.1s linear;
+}
+
+.navbar-links li:hover {
+  transform: scale(1.075);
 }
 
 .navbar-logo {
-  width: 80px; 
-  height: auto; 
+  height: 40px; 
+  width: auto; 
 }

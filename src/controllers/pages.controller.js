@@ -8,7 +8,7 @@ export const showHomePage = async (req, res) => {
     ]);
     
     res.render('pages/index', {
-      pageTitle: 'RMGe',
+      pageTitle: 'RMGe: Explore e avalie diversos filmes e séries',
       movies: movies,
       shows: shows
     });

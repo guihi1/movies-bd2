@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" href="/css/shows.css" />
+    <link rel="icon" type="image/png" href="/images/Logo_RMGe_icon.png" />
+    <title><%= pageTitle %></title>
+  </head>
+
+  <body>
+    <%- include('../partials/navbar') %>
+    <div class="container">
+      <h1>Filmes (A - Z)</h1>
+
+      <%initialLetters = Object.keys(filmes).sort();
+      if(initialLetters.length > 0) { initialLetters.forEach(letter => { const
+      showsInSection = filmes[letter]; %>
+
+      <section class="movie-section">
+        <h2 id="letter-<%= letter %>" class="section-letter"><%= letter %></h2>
+
+        <div class="media-grid">
+          <% showsInSection.forEach(movie => { %>
+          <div class="media-card">
+            <h4>
+              <a href="/movie-details/<%= movie.id %>"> <%= movie.titulo %> </a>
+            </h4>
+            <p>
+              <%= movie.pais_de_origem %> (<%= movie.data_de_publicacao ?
+              movie.data_de_publicacao.getFullYear() : 'N/A' %>)
+            </p>
+          </div>
+          <% }); %>
+        </div>
+      </section>
+
+      <% }); %> <% } else { %>
+      <p>Nenhum filme encontrado no banco de dados.</p>
+      <% } %>
+    </div>
+    <body></body>
+  </body>
+</html>

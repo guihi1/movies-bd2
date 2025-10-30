@@ -25,6 +25,42 @@ export const findMovieById = async (id) => {
   }
 };
 
+export const findAllMoviesGrouped = async () => {
+    try {
+        const query = `SELECT * FROM midia WHERE tipo = 'Filme' ORDER BY titulo ASC;`;
+        
+        const { rows } = await pool.query(query);
+
+        const groupedMovies = {};
+
+        rows.forEach(movie => {
+            const firstLetter = movie.titulo
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .charAt(0)
+                .toUpperCase();
+            if (firstLetter >= 'A' && firstLetter <= 'Z') {
+                if (!groupedMovies[firstLetter]) {
+                    groupedMovies[firstLetter] = [];
+                }
+                
+                groupedMovies[firstLetter].push(movie);
+            }
+            else {
+              if(!groupedMovies['#']){
+                groupedMovies['#'] = [];
+              }
+              groupedMovies['#'].push(movie);
+            }
+        });
+
+        return groupedMovies;
+    } catch (error) {
+        console.error('Erro ao buscar e agrupar todos os filmes:', error.stack);
+        throw error;
+    }
+};
+
 export const findEpisodeById = async (episodeId) => {
   try {
     const query = `
@@ -70,6 +106,42 @@ export const findShows = async () => {
     console.error("Error fetching shows:", error.stack);
     throw error;
   }
+};
+
+export const findAllShowsGrouped = async () => {
+    try {
+        const query = `SELECT * FROM serie ORDER BY nome ASC;`;
+        
+        const { rows } = await pool.query(query);
+
+        const groupedShows = {};
+
+        rows.forEach(show => {
+            const firstLetter = show.nome
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .charAt(0)
+                .toUpperCase();
+            if (firstLetter >= 'A' && firstLetter <= 'Z') {
+                if (!groupedShows[firstLetter]) {
+                    groupedShows[firstLetter] = [];
+                }
+                
+                groupedShows[firstLetter].push(show);
+            }
+            else {
+              if(!groupedShows['#']){
+                groupedShows['#'] = [];
+              }
+              groupedShows['#'].push(show);
+            }
+        });
+
+        return groupedShows;
+    } catch (error) {
+        console.error('Erro ao buscar e agrupar todas as séries:', error.stack);
+        throw error;
+    }
 };
 
 export const findShowById = async (id) => {

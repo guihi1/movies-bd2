@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/home.css" />
-    <link rel="stylesheet" href="/css/movies.css" />
+    <link rel="stylesheet" href="/css/all-cards-ordered.css" />
     <link rel="icon" type="image/png" href="/images/Logo_RMGe_icon.png" />
     <title><%= pageTitle %></title>
   </head>
@@ -19,12 +19,12 @@
       if(initialLetters.length > 0) { initialLetters.forEach(letter => { const
       moviesInSection = filmes[letter]; %>
 
-      <section class="movie-section">
-        <h2 id="letter-<%= letter %>" class="section-letter"><%= letter %></h2>
+      <section class="same-initial-section">
+        <h2 id="letter-<%= letter %>" class="letter-title"><%= letter %></h2>
 
-        <div class="media-grid">
+        <div class="objects-grid">
           <% moviesInSection.forEach(movie => { %>
-          <div class="media-card">
+          <div class="object-card">
             <h4>
               <a href="/movie-details/<%= movie.id %>"> <%= movie.titulo %> </a>
             </h4>

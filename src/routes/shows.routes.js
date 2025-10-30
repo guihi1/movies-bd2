@@ -3,7 +3,7 @@ import { showAllShowsPage } from '../controllers/shows.controller.js'
 
 const router = Router();
 
-router.get('/shows', showAllShowsPage)
+router.get('/', showAllShowsPage)
 
 export default router;
 

@@ -32,6 +32,47 @@ export const findPersonByActorId = async (atorId) => {
   }
 };
 
+export const findAllActorsGrouped = async () => {
+    try {
+        const query =`
+          SELECT a.id, p.nome, p.local_de_nascimento 
+          FROM ator a
+          JOIN pessoa p ON a.pessoa_id = p.id
+          ORDER BY p.nome;
+        `;
+        
+        const { rows } = await pool.query(query);
+
+        const groupedActors = {};
+
+        rows.forEach(actor => {
+            const firstLetter = actor.nome
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .charAt(0)
+                .toUpperCase();
+            if (firstLetter >= 'A' && firstLetter <= 'Z') {
+                if (!groupedActors[firstLetter]) {
+                    groupedActors[firstLetter] = [];
+                }
+                
+                groupedActors[firstLetter].push(actor);
+            }
+            else {
+              if(!groupedActors['#']){
+                groupedActors['#'] = [];
+              }
+              groupedActors['#'].push(actor);
+            }
+        });
+
+        return groupedActors;
+    } catch (error) {
+        console.error('Erro ao buscar e agrupar todos os atores:', error.stack);
+        throw error;
+    }
+};
+
 // export const findMediaByActorId = async (atorId) => {
 //   try {
 //     const query = `

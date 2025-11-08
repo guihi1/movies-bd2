@@ -2,7 +2,7 @@ import { findAllMoviesGrouped } from '../services/media.service.js';
 
 export const showAllMoviesPage = async (req, res) => {
   try {
-    const [movies] = await Promise.all([findAllMoviesGrouped()]);
+    const movies = await findAllMoviesGrouped();
 
     if (!movies) {
       return res.status(404).render('pages/error', {
@@ -12,7 +12,6 @@ export const showAllMoviesPage = async (req, res) => {
       });
     }
 
-    
     res.render('pages/movies', {
       pageTitle: 'RMGe: Filmes',
       filmes: movies,

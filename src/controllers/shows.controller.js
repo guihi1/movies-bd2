@@ -2,7 +2,7 @@ import { findAllShowsGrouped } from '../services/media.service.js';
 
 export const showAllShowsPage = async (req, res) => {
   try {
-    const [shows] = await Promise.all([findAllShowsGrouped()]);
+    const shows = await findAllShowsGrouped();
 
     if (!shows) {
       return res.status(404).render('pages/error', {
@@ -12,7 +12,7 @@ export const showAllShowsPage = async (req, res) => {
       });
     }
 
-    
+
     res.render('pages/shows', {
       pageTitle: 'RMGe: Séries',
       series: shows,

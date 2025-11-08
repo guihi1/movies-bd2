@@ -5,9 +5,10 @@ import moviesRoutes from './src/routes/movies.routes.js';
 import showsRoutes from './src/routes/shows.routes.js';
 import actorsRoutes from './src/routes/actors.routes.js';
 import movieDetailsRoutes from './src/routes/movie-details.routes.js';
-import episodeDetailsRoutes from './src/routes/episode-details.routes.js'
+import episodeDetailsRoutes from './src/routes/episode-details.routes.js';
 import showDetailsRoutes from './src/routes/show-details.routes.js';
-import actorDetailsRoutes from './src/routes/actor-details.routes.js'
+import actorDetailsRoutes from './src/routes/actor-details.routes.js';
+import reviewRouter from './src/routes/review.routes.js';
 import { fileURLToPath } from 'url';
 
 const app = Express();
@@ -27,6 +28,7 @@ app.use('/movie-details', movieDetailsRoutes);
 app.use('/show-details', showDetailsRoutes);
 app.use('/show', episodeDetailsRoutes);
 app.use('/actor-details', actorDetailsRoutes);
+app.use('/review', reviewRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

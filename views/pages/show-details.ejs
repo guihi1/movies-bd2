@@ -76,11 +76,14 @@
       </div>
 
       <h3 class="elenco-titulo">Elenco</h3>
+      
+
+      <h4 class="cargo-titulo">Atores</h4>
       <div class="elenco-container">
         <% if (atores && atores.length > 0) { %> <% atores.forEach(ator => { %>
-        <div class="ator-card">
-          <a href="/actor-details/<%= ator.pessoa_id %>" class="ator-link">
-            <span class="ator-nome"> <%= ator.nome_ator %> </span>
+        <div class="pessoa-card">
+          <a href="/actor-details/<%= ator.pessoa_id %>" class="pessoa-link">
+            <span class="pessoa-nome"> <%= ator.nome_ator %> </span>
           </a>
           <span class="ator-personagem"> <%= ator.personagem %> </span>
         </div>
@@ -88,6 +91,47 @@
         <p>Informações de elenco não disponíveis.</p>
         <% } %>
       </div>
+
+      <h4 class="cargo-titulo">Diretores</h4>
+      <div class="elenco-container">
+        <% if (diretores && diretores.length > 0) { %> <% diretores.forEach(diretor => { %>
+        <div class="pessoa-card">
+          <a href="/producer-details/<%= diretor.pessoa_id %>" class="pessoa-link">
+            <span class="pessoa-nome"> <%= diretor.nome_diretor %> </span>
+          </a>
+        </div>
+        <% }); %> <% } else { %>
+        <p>Informações de elenco não disponíveis.</p>
+        <% } %>
+      </div>
+
+      <h4 class="cargo-titulo">Roteirstas</h4>
+      <div class="elenco-container">
+        <% if (roteiristas && roteiristas.length > 0) { %> <% roteiristas.forEach(roteirista => { %>
+        <div class="pessoa-card">
+          <a href="/actor-details/<%= roteirista.pessoa_id %>" class="pessoa-link">
+            <span class="pessoa-nome"> <%= roteirista.nome_roteirista %> </span>
+          </a>
+        </div>
+        <% }); %> <% } else { %>
+        <p>Informações de elenco não disponíveis.</p>
+        <% } %>
+      </div>
+
+      <h4 class="cargo-titulo">Produtores</h4>
+      <div class="elenco-container">
+        <% if (produtores && produtores.length > 0) { %> <% produtores.forEach(produtor => { %>
+        <div class="pessoa-card">
+          <a href="/actor-details/<%= produtor.pessoa_id %>" class="pessoa-link">
+            <span class="pessoa-nome"> <%= produtor.nome_pessoa_produtora %> </span>
+          </a>
+        </div>
+        <% }); %> <% } else { %>
+        <p>Informações de elenco não disponíveis.</p>
+        <% } %>
+      </div>
+
+
 
       <a href="/" class="back-link">← Voltar para a lista</a>
     </div>

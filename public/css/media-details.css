@@ -1,6 +1,6 @@
-/* ============================================== */
-/* 1. Detalhes da Mídia               */
-/* ============================================== */
+/*-----------------------------------------------*/
+/* Mídia                                       */
+/*-----------------------------------------------*/
 
 .media-details {
   background-color: #3e3e3e;
@@ -33,9 +33,18 @@
   text-decoration: underline;
 }
 
-/* ============================================== */
-/* 2. Elenco                      */
-/* ============================================== */
+/*-----------------------------------------------*/
+/* Elenco                                       */
+/*-----------------------------------------------*/
+
+.cargo-titulo {
+  font-size: 1.25rem; /* Was 0.75rem, which is tiny */
+  color: #ffffff;
+  margin-top: 2rem;   /* Add space above this heading */
+  margin-bottom: 1rem; /* Add space below this heading */
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #555555; /* Add a light separator */
+}
 
 .elenco-titulo {
   margin-top: 2rem;
@@ -46,6 +55,7 @@
 }
 
 .elenco-container {
+  width: 100;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -64,7 +74,7 @@
   }
 }
 
-.ator-card {
+.pessoa-card {
   background-color: #444444;
   border: 1px solid #555555;
   padding: 1rem;
@@ -74,7 +84,7 @@
   flex-direction: column;
 }
 
-.ator-nome {
+.pessoa-nome {
   font-weight: 600;
   font-size: 1.1rem;
   color: #ffffff;
@@ -92,20 +102,20 @@
   margin-right: 0.25rem;
 }
 
-.ator-link {
+.pessoa-link {
     color: #cccccc; 
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
-.ator-link:hover {
+.pessoa-link:hover {
     color: #f6c700;
     text-decoration: underline;
 }
 
-/* ============================================== */
-/* 3. Reviews                     */
-/* ============================================== */
+/*-----------------------------------------------*/
+/* Reviews                                       */
+/*-----------------------------------------------*/
 
 .reviews-titulo {
   font-size: 1.75rem;
@@ -241,4 +251,10 @@
     font-weight: bold;
     color: #f6c700; 
     font-size: 1rem;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #555555;
+  margin: rem 0;
 }

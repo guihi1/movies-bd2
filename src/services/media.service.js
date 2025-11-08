@@ -237,6 +237,72 @@ export const findActorsByMediaId = async (mediaId) => {
   }
 };
 
+export const findDirectorsByMediaId = async (mediaId) => {
+  try {
+    const query = `
+      SELECT p.nome, p.id
+      FROM pessoa p
+      JOIN diretor ON p.id = diretor.pessoa_id
+      JOIN direcao dir ON diretor.id = dir.diretor_id
+      WHERE dir.midia_id = $1
+      ORDER BY p.nome;
+    `;
+
+    const { rows } = await pool.query(query, [mediaId]);
+    return rows;
+  } catch (error) {
+    console.error(
+      `Erro ao buscar diretores por ID de mídia (${mediaId}):`,
+      error.stack
+    );
+    throw error;
+  }
+};
+
+export const findWritersByMediaId = async (mediaId) => {
+  try {
+    const query = `
+      SELECT p.nome, p.id
+      FROM pessoa p
+      JOIN roteirista ON p.id = roteirista.pessoa_id
+      JOIN roteiro rot ON roteirista.id = rot.roteirista_id
+      WHERE rot.midia_id = $1
+      ORDER BY p.nome;
+    `;
+
+    const { rows } = await pool.query(query, [mediaId]);
+    return rows;
+  } catch (error) {
+    console.error(
+      `Erro ao buscar roteiristas por ID de mídia (${mediaId}):`,
+      error.stack
+    );
+    throw error;
+  }
+};
+
+export const findProducersByMediaId = async (mediaId) => {
+  try {
+    const query = `
+      SELECT p.nome, p.id
+      FROM pessoa p
+      JOIN pessoaprodutora ON p.id = pessoaprodutora.pessoa_id
+      JOIN produz prod ON pessoaprodutora.id = prod.pessoa_produtora_id
+      WHERE prod.midia_id = $1
+      ORDER BY p.nome;
+    `;
+
+    const { rows } = await pool.query(query, [mediaId]);
+    return rows;
+  } catch (error) {
+    console.error(
+      `Erro ao buscar pessoas produtoras por ID de mídia (${mediaId}):`,
+      error.stack
+    );
+    throw error;
+  }
+};
+
 export const findActorsByShowId = async (showId) => {
   try {
     const query = `
@@ -261,6 +327,93 @@ export const findActorsByShowId = async (showId) => {
   } catch (error) {
     console.error(
       `Erro ao buscar atores por ID da série (${showId}):`,
+      error.stack
+    );
+    throw error;
+  }
+};
+
+export const findDirectorsByShowId = async (showId) => {
+  try {
+    const query = `
+      SELECT DISTINCT
+          P.id AS pessoa_id,
+          P.nome AS nome_diretor,
+          P.data_de_nascimento
+      FROM serie S
+      JOIN temporada T ON S.id = T.serie_id
+      JOIN episodio E ON T.id = E.temporada_id
+      JOIN midia M ON E.midia_id = M.id
+      JOIN direcao D ON M.id = D.midia_id
+      JOIN diretor DRT ON D.diretor_id = DRT.id
+      JOIN pessoa P ON DRT.pessoa_id = P.id
+      WHERE S.id = $1
+      ORDER BY P.nome;
+    `;
+
+    const { rows } = await pool.query(query, [showId]);
+    return rows;
+  } catch (error) {
+    console.error(
+      `Erro ao buscar diretores por ID da série (${showId}):`,
+      error.stack
+    );
+    throw error;
+  }
+};
+
+export const findWritersByShowId = async (showId) => {
+  try {
+    const query = `
+      SELECT DISTINCT
+          P.id AS pessoa_id,
+          P.nome AS nome_roteirista,
+          P.data_de_nascimento
+      FROM serie S
+      JOIN temporada T ON S.id = T.serie_id
+      JOIN episodio E ON T.id = E.temporada_id
+      JOIN midia M ON E.midia_id = M.id
+      JOIN roteiro R ON M.id = R.midia_id
+      JOIN roteirista RTR ON R.roteirista_id = RTR.id
+      JOIN pessoa P ON RTR.pessoa_id = P.id
+      WHERE S.id = $1
+      ORDER BY P.nome;
+    `;
+
+    const { rows } = await pool.query(query, [showId]);
+    return rows;
+  } catch (error) {
+    console.error(
+      `Erro ao buscar roteiristaes por ID da série (${showId}):`,
+      error.stack
+    );
+    throw error;
+  }
+};
+
+export const findProducersByShowId = async (showId) => {
+  try {
+    const query = `
+      SELECT DISTINCT
+          P.id AS pessoa_id,
+          P.nome AS nome_pessoa_produtora,
+          P.data_de_nascimento
+      FROM serie S
+      JOIN temporada T ON S.id = T.serie_id
+      JOIN episodio E ON T.id = E.temporada_id
+      JOIN midia M ON E.midia_id = M.id
+      JOIN produz PR ON M.id = PR.midia_id
+      JOIN pessoaprodutora PROD ON PR.pessoa_produtora_id = PROD.id
+      JOIN pessoa P ON PROD.pessoa_id = P.id
+      WHERE S.id = $1
+      ORDER BY P.nome;
+    `;
+
+    const { rows } = await pool.query(query, [showId]);
+    return rows;
+  } catch (error) {
+    console.error(
+      `Erro ao buscar pessoas produtoras por ID da série (${showId}):`,
       error.stack
     );
     throw error;

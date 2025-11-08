@@ -38,9 +38,9 @@
       <h3 class="elenco-titulo">Elenco</h3>
       <div class="elenco-container">
         <% if (atores && atores.length> 0) { %> <% atores.forEach(ator=> { %>
-        <div class="ator-card">
-          <a href="/actor-details/<%= ator.id %>" class="ator-link">
-            <span class="ator-nome"> <%= ator.nome %> </span>
+        <div class="pessoa-card">
+          <a href="/actor-details/<%= ator.id %>" class="pessoa-link">
+            <span class="pessoa-nome"> <%= ator.nome %> </span>
           </a>
           <span class="ator-personagem"> <%= ator.personagem %> </span>
         </div>

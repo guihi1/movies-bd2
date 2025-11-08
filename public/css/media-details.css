@@ -1,3 +1,9 @@
+hr {
+  border: 0;
+  border-top: 1px solid #555555;
+  margin: rem 0;
+}
+
 /*-----------------------------------------------*/
 /* Mídia                                       */
 /*-----------------------------------------------*/
@@ -6,19 +12,19 @@
   background-color: #3e3e3e;
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .media-details h3 {
   margin-top: 1.5rem;
   border-bottom: 2px solid #555555;
   padding-bottom: 0.5rem;
-  color: #ffffff; 
+  color: #ffffff;
 }
 
 .media-details p {
   line-height: 1.6;
-  color: #cccccc; 
+  color: #cccccc;
 }
 
 .back-link {
@@ -103,14 +109,14 @@
 }
 
 .pessoa-link {
-    color: #cccccc; 
-    text-decoration: none;
-    transition: color 0.2s ease;
+  color: #cccccc; 
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .pessoa-link:hover {
-    color: #f6c700;
-    text-decoration: underline;
+  color: #f6c700;
+  text-decoration: underline;
 }
 
 /*-----------------------------------------------*/
@@ -159,7 +165,7 @@
 .review-nota {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #f6c700; 
+  color: #f6c700;
 }
 
 .review-comentario {
@@ -174,87 +180,153 @@
 /* ============================================== */
 
 .temporadas-container {
-    margin-top: 2.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid #555555;
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #555555;
 }
 
 .temporada-titulo {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #555555;
-    padding-bottom: 0.5rem;
-    color: #ffffff;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #555555;
+  padding-bottom: 0.5rem;
+  color: #ffffff;
 }
 
 .temporada-card {
-    background-color: #3e3e3e;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    border: 1px solid #555555;
-    border-radius: 6px;
+  background-color: #3e3e3e;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #555555;
+  border-radius: 6px;
 }
 
 .temporada-header {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #f0f0f0;
-    margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f0f0f0;
+  margin-bottom: 0.75rem;
 }
 
 .episodios-lista {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .episodio-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
-    border-bottom: 1px dotted #666666;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px dotted #666666;
 }
 
 .episodio-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .episodio-info {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .episodio-titulo {
-    font-weight: 500;
-    color: #cccccc;
+  font-weight: 500;
+  color: #cccccc;
 }
 
 .episodio-titulo a {
-    color: #cccccc;
-    text-decoration: none;
-    transition: color 0.2s ease;
+  color: #cccccc;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .episodio-titulo a:hover {
-    color: #ffffff;
-    text-decoration: underline;
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 .episodio-details {
-    font-size: 0.9rem;
-    color: #999999;
-    margin-top: 0.1rem;
+  font-size: 0.9rem;
+  color: #999999;
+  margin-top: 0.1rem;
 }
 
 .episodio-nota {
-    font-weight: bold;
-    color: #f6c700; 
-    font-size: 1rem;
+  font-weight: bold;
+  color: #f6c700;
+  font-size: 1rem;
 }
 
-hr {
-  border: 0;
-  border-top: 1px solid #555555;
-  margin: rem 0;
+.review-form-titulo {
+  font-size: 1.75rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #555555;
+  padding-bottom: 0.5rem;
+  color: #ffffff;
 }
+
+.review-form {
+  background-color: #444444;
+  border: 1px solid #555555;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #333333;
+  border: 1px solid #555555;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control::placeholder {
+  color: #888888;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #f6c700;
+  box-shadow: 0 0 0 3px rgba(246, 199, 0, 0.25);
+}
+
+.btn.btn-primary {
+  display: inline-block;
+  font-weight: 600;
+  color: #111111;
+  background-color: #f6c700;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn.btn-primary:hover {
+  background-color: #dcb000;
+}
+

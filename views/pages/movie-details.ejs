@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/media-details.css" />
-    <title><%= pageTitle %></title>
-  </head>
 
-  <body>
-    <%- include('../partials/navbar') %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/media-details.css" />
+  <title>
+    <%= pageTitle %>
+  </title>
+</head>
+
+<body>
+  <%- include('../partials/navbar') %>
     <div class="container">
-      <h1><%= filme.titulo %></h1>
+      <h1>
+        <%= filme.titulo %>
+      </h1>
       <div class="media-details">
         <p>
           <strong>Ano:</strong>
-          <%= filme.data_de_publicacao ? filme.data_de_publicacao.getFullYear()
-          : 'N/A' %>
+          <%= filme.data_de_publicacao ? filme.data_de_publicacao.getFullYear() : 'N/A' %>
         </p>
         <p>
           <strong>País:</strong>
@@ -26,13 +30,16 @@
           <strong>Duração:</strong>
           <%= filme.tempo_de_duracao %> minutos
         </p>
-        <p><strong>Faturamento:</strong> $ <%= filme.faturamento %></p>
+        <p><strong>Faturamento:</strong> $ <%= filme.faturamento %>
+        </p>
         <p>
           <strong>Faixa etária indicada:</strong>
           <%= filme.faixa_etaria_indicada %>
         </p>
         <h3>Enredo</h3>
-        <p><%= filme.enredo %></p>
+        <p>
+          <%= filme.enredo %>
+        </p>
       </div>
 
       <h3 class="elenco-titulo">Elenco</h3>
@@ -50,20 +57,51 @@
       </div>
       <h3 class="reviews-titulo">Avaliações</h3>
       <div class="reviews-container">
-        <% if (avaliacoes && avaliacoes.length> 0) { %> <%
-        avaliacoes.forEach(avaliacao=> { %>
-        <div class="review-card">
-          <div class="review-header">
-            <span class="review-user"> <%= avaliacao.nome_usuario %> </span>
-            <span class="review-nota"> ★ <%= avaliacao.nota %> </span>
-          </div>
-          <p class="review-comentario"><%= avaliacao.comentario %></p>
-        </div>
-        <% }); %> <% } else { %>
-        <p>Este filme ainda não possui avaliações.</p>
-        <% } %>
+        <% if (avaliacoes && avaliacoes.length> 0) { %> <% avaliacoes.forEach(avaliacao=> { %>
+            <div class="review-card">
+              <div class="review-header">
+                <span class="review-user">
+                  <%= avaliacao.nome_usuario %>
+                </span>
+                <span class="review-nota"> ★ <%= avaliacao.nota %> </span>
+              </div>
+              <p class="review-comentario">
+                <%= avaliacao.comentario %>
+              </p>
+            </div>
+            <% }); %>
+              <% } else { %>
+                <p>Este filme ainda não possui avaliações.</p>
+                <% } %>
       </div>
+
+      <h3 class="review-form-titulo">Deixe sua avaliação</h3>
+
+      <form method="POST" action="/review/create" class="review-form">
+        <input type="hidden" name="id" value="<%= filme.id %>" />
+
+        <div class="form-group">
+          <label for="name" class="form-label">Nome de usuário</label>
+          <input class="form-control" type="text" name="nome_usuario" id="name"
+            placeholder="Digite o seu nome de usuário" required />
+        </div>
+
+        <div class="form-group">
+          <label for="review" class="form-label">Avaliação</label>
+          <input type="text" name="comentario" id="review" placeholder="Digite sua avaliação" class="form-control"
+            required />
+        </div>
+
+        <div class="form-group">
+          <label for="rating" class="form-label">Nota</label>
+          <input class="form-control" type="text" id="rating" name="nota" placeholder="Digite sua nota (ex: 8.5)" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Enviar Avaliação</button>
+      </form>
+
       <a href="/" class="back-link">← Voltar para a lista</a>
     </div>
-  </body>
+</body>
+
 </html>

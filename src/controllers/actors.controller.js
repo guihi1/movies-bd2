@@ -2,7 +2,7 @@ import { findAllActorsGrouped } from '../services/actors.service.js';
 
 export const showAllActorsPage = async (req, res) => {
   try {
-    const [actors] = await Promise.all([findAllActorsGrouped()]);
+    const actors = await findAllActorsGrouped();
 
     if (!actors) {
       return res.status(404).render('pages/error', {
@@ -12,7 +12,6 @@ export const showAllActorsPage = async (req, res) => {
       });
     }
 
-    
     res.render('pages/actors', {
       pageTitle: 'RMGe: Atores',
       atores: actors,

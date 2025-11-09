@@ -1,29 +1,39 @@
-import { findEpisodeById, findActorsByMediaId, findReviewsByMediaId } from '../services/media.service.js';
-
+import { findMovieById, findActorsByMediaId, findDirectorsByMediaId, findWritersByMediaId, findProducersByMediaId, findReviewsByMediaId } from '../services/media.service.js'
 export const showEpisodePage = async (req, res) => {
   try {
-    const { showId, episodeId } = req.params;
-    const [episode, actors, reviews] = await Promise.all([findEpisodeById(episodeId), findActorsByMediaId(episodeId), findReviewsByMediaId(episodeId)]);
-
-    if (!episode) {
-      return res.status(404).render('pages/error', {
-        statusCode: 404,
-        message: 'Episódio não encontrado',
-        description: 'O episódio que você está procurando não existe.'
+      const { episodeId } = req.params;
+      const [movie, actors, directors, wirters, producers, reviews] = await Promise.all([
+        findMovieById(episodeId),
+        findActorsByMediaId(episodeId),
+        findDirectorsByMediaId(episodeId),
+        findWritersByMediaId(episodeId),
+        findProducersByMediaId(episodeId),
+        findReviewsByMediaId(episodeId)
+      ]);
+  
+      if (!movie) {
+        return res.status(404).render('pages/error', {
+          statusCode: 404,
+          message: 'Série não encontrada',
+          description: 'O filme que você está procurando não existe.'
+        });
+      }
+  
+      res.render('pages/movie-details', {
+        filme: movie,
+        atores: actors,
+        diretores: directors,
+        roteiristas: wirters,
+        produtores: producers,
+        pageTitle: movie.nome,
+        avaliacoes: reviews
+      });
+  
+    } catch (error) {
+      res.status(500).render('pages/error', {
+        statusCode: 500,
+        message: 'Erro no servidor\n(' + error + ')'
       });
     }
-
-    res.render('pages/episode-details', {
-      episodio: episode,
-      atores: actors,
-      avaliacoes: reviews,
-      pageTitle: episode.titulo,
-    });
-  } catch (error) {
-    console.error(`Erro ao carregar episódio ${req.params.episodeId}:`, error.stack);
-    res.status(500).render('pages/error', {
-      pageTitle: 'Erro',
-      message: 'Não foi possível carregar os dados do episódio.(' + error + ')',
-    });
-  }
-};
+  };
+  

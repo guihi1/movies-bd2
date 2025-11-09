@@ -16,7 +16,7 @@ export const showMoviePage = async (req, res) => {
       return res.status(404).render('pages/error', {
         statusCode: 404,
         message: 'Série não encontrada',
-        description: 'A série que você está procurando não existe.'
+        description: 'O filme que você está procurando não existe.'
       });
     }
 

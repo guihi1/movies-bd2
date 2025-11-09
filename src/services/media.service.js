@@ -296,7 +296,7 @@ export const findProducersByMediaId = async (mediaId) => {
     const query = `
       SELECT DISTINCT
           p.id AS pessoa_id,
-          p.nome AS nome_produtor,
+          p.nome AS nome_pessoa_produtora,
           p.data_de_nascimento
       FROM pessoa p
       JOIN pessoaprodutora ON p.id = pessoaprodutora.pessoa_id

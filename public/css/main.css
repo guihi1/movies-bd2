@@ -24,6 +24,7 @@ body {
 }
 
 .navbar .container {
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,7 +48,8 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 1.5rem;
+  gap: 1.2rem;
+  align-items: center;
 }
 
 .navbar-links a {
@@ -76,4 +78,11 @@ body {
 .navbar-logo {
   height: 40px; 
   width: auto; 
+}
+
+.navbar-vertical-separator {
+  width: 1px;
+  height: 1.2rem;
+  background-color: #555555;
+  margin: 0;
 }

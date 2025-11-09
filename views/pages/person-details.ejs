@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/person-details.css">
+  <title><%= pageTitle %></title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <div class="container">
+    
+    <h1 class="ator-nome"><%= pessoa.nome %></h1>
+    <div class="actor-bio-box">
+      <h3>Detalhes Pessoais</h3>
+      <div class="bio-grid">
+        <strong class="bio-label">Data de Nasc.:</strong>
+        <span class="bio-value">
+          <%= pessoa.data_de_nascimento ? new Date(pessoa.data_de_nascimento).toLocaleDateString('pt-BR') : 'N/A' %>
+        </span>
+        
+        <strong class="bio-label">Local de Nasc.:</strong>
+        <span class="bio-value"><%= pessoa.local_de_nascimento %></span>
+        
+        <strong class="bio-label">Altura:</strong>
+        <span class="bio-value"><%= pessoa.altura ? pessoa.altura + 'm' : 'N/A' %></span>
+      </div>
+    </div>
+
+    <h3 class="filmografia-titulo">Premiações</h3>
+    <div class="premiacoes-list">
+      <% if (premiacoes && premiacoes.length > 0) { %>
+        <% premiacoes.forEach(premio => { %>
+          <div class="premio-card">
+            <% if (premio.nome) { %>
+              <div class="premio-nome">
+                <%= premio.nome %> (<%= premio.ano %>)
+                <% if (premio.categoria) { %>
+                  - <%= premio.categoria %>
+                <% } %>
+              </div>
+            <% } %>
+            <div class="premio-detalhes">
+                <% if (premio.organizacao) { %>
+                  <div><strong>Organização:</strong> <%= premio.organizacao %></div>
+                <% } %>
+                <% if (premio.descricao) { %>
+                  <div><strong>Descrição:</strong> <%= premio.descricao %></div>
+                <% } %>
+                <% if (premio.personagem) { %>
+                  <div><strong>Personagem:</strong> <%= premio.personagem %></div>
+                <% } %>
+              </div>
+            </div>
+        <% }); %>
+      <% } else { %>
+        <p>Nenhuma premiação registrada para esta pessoa.</p>
+      <% } %>
+    </div>
+
+    <% if (atuacoes && atuacoes.length > 0) { %>
+        <h3 class="filmografia-titulo">Atuação</h3>
+        <div class="filmografia-list">
+          <% atuacoes.forEach(item => { %>
+            <div class="filme-card">
+              <span class="filme-titulo">
+                <% 
+                  let mediaRoute = '/';
+                  let mediaTitle = item.titulo || item.serie_nome; // Garante que há um título
+                  // Lógica para determinar a rota correta
+                  if (item.tipo === 'Filme') {
+                    mediaRoute = '/movie-details/' + item.midia_id;
+                  } else if (item.tipo === 'Episódio de Série') {
+                    // Assume que série_id e midia_id são passados corretamente
+                    mediaRoute = '/show-details/' + item.serie_id; 
+                  } 
+                %>
+                <a href="<%= mediaRoute %>"><%= mediaTitle %></a>
+              </span>
+              <span class="filme-personagem">Personagem: <%= item.personagem %></span>
+            </div>
+          <% }); %>
+        </div>
+    <% } %>
+
+    <% if (direcoes && direcoes.length > 0) { %>
+        <h3 class="filmografia-titulo">Direções</h3>
+        <div class="filmografia-list">
+          <% direcoes.forEach(item => { %>
+            <div class="filme-card">
+              <span class="filme-titulo">
+                <% 
+                  let mediaRoute = '/';
+                  let mediaTitle = item.titulo || item.serie_nome;
+                  if (item.tipo === 'Filme') {
+                    mediaRoute = '/movie-details/' + item.midia_id;
+                  } else if (item.tipo === 'Episódio de Série') {
+                    mediaRoute = '/show-details/' + item.serie_id;
+                  } 
+                %>
+                <a href="<%= mediaRoute %>"><%= mediaTitle %></a>
+              </span>
+              <span class="filme-personagem">Diretor(a)</span>
+            </div>
+          <% }); %>
+        </div>
+    <% } %>
+
+    <% if (roteiros && roteiros.length > 0) { %>
+        <h3 class="filmografia-titulo">Roteiros</h3>
+        <div class="filmografia-list">
+          <% roteiros.forEach(item => { %>
+            <div class="filme-card">
+              <span class="filme-titulo">
+                <% 
+                  let mediaRoute = '/';
+                  let mediaTitle = item.titulo || item.serie_nome;
+                  if (item.tipo === 'Filme') {
+                    mediaRoute = '/movie-details/' + item.midia_id;
+                  } else if (item.tipo === 'Episódio de Série') {
+                    mediaRoute = '/show-details/' + item.serie_id;
+                  } 
+                %>
+                <a href="<%= mediaRoute %>"><%= mediaTitle %></a>
+              </span>
+              <span class="filme-personagem">Roteirista</span>
+            </div>
+          <% }); %>
+        </div>
+    <% } %>
+
+    <% if (producoes && producoes.length > 0) { %>
+        <h3 class="filmografia-titulo">Produções</h3>
+        <div class="filmografia-list">
+          <% producoes.forEach(item => { %>
+            <div class="filme-card">
+              <span class="filme-titulo">
+                <% 
+                  let mediaRoute = '/';
+                  let mediaTitle = item.titulo || item.serie_nome;
+                  if (item.tipo === 'Filme') {
+                    mediaRoute = '/movie-details/' + item.midia_id;
+                  } else if (item.tipo === 'Episódio de Série') {
+                    mediaRoute = '/show-details/' + item.serie_id;
+                  } 
+                %>
+                <a href="<%= mediaRoute %>"><%= mediaTitle %></a>
+              </span>
+              <span class="filme-personagem">Produtor(a)</span>
+            </div>
+          <% }); %>
+        </div>
+    <% } %>
+
+  </div>
+
+</body>
+</html>

@@ -2,9 +2,9 @@ import { findAllProductionCompaniesGrouped } from '../services/productioncompani
 
 export const showAllProductionCompaniesPage = async (req, res) => {
   try {
-    const [productioncompanies] = await Promise.all([findAllProductionCompaniesGrouped()]);
+    const [productionCompanies] = await Promise.all([findAllProductionCompaniesGrouped()]);
 
-    if (!productioncompanies) {
+    if (!productionCompanies) {
       return res.status(404).render('pages/error', {
         statusCode: 404,
         message: 'Produtoras não foram encontradas',
@@ -14,7 +14,7 @@ export const showAllProductionCompaniesPage = async (req, res) => {
 
     res.render('pages/productioncompanies', {
       pageTitle: 'RMGe: Produtoras',
-      produtoras: productioncompanies,
+      produtoras: productionCompanies,
     });
 
   } catch (error) {

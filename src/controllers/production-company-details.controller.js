@@ -1,24 +1,17 @@
-import { findPersonByProducerId, findMediaByProducerId, findAwardsByProducerId } from '../services/producers.service.js';
+import { findProductionCompanyById } from '../services/productioncompanys.service.js';
 
-export const showProducerPage = async (req, res) => {
+export const showProductionCompanyPage = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const [person, media, premiacoes] = await Promise.all([
-      findPersonByProducerId(id),
-      findMediaByProducerId(id),
-      findAwardsByProducerId(id)
-    ]);
+    const productionCompany = await findProductionCompanyById(id);
 
-    if (!person) {
-      return res.status(404).render('pages/error', { message: 'Produtor não encontrado' });
+    if (!productionCompany) {
+      return res.status(404).render('pages/error', { message: 'Produtora não encontrado' });
     }
 
-    res.render('pages/producer-details', {
-      pessoa: person,
-      filmografia: media,
-      premiacoes,
-      pageTitle: person.nome
+    res.render('pages/productioncompany-details', {
+      produtora: productionCompany,
     });
 
   } catch (error) {

@@ -1,5 +1,5 @@
 /* ============================================== */
-/*    Informações Biográficas                     */
+/* Informações Biográficas                     */
 /* ============================================== */
 
 .container h1.ator-nome {
@@ -44,27 +44,50 @@
 }
 
 /* ============================================== */
-/*    Premiações                                  */
+/* Premiações                                     */
 /* ============================================== */
 
-.premiacao-detalhes {
+.premiacoes-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.premio-card {
+  background-color: #444444;
+  border: 1px solid #555555;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.premio-nome {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f6c700; /* Cor de destaque para o nome do prêmio */
+  margin-bottom: 0.5rem;
+  border-bottom: 1px dashed #555555;
+  padding-bottom: 0.5rem;
+}
+
+.premio-detalhes {
   margin-top: 0.5rem;
   font-size: 0.95rem;
   color: #dddddd;
 }
 
-.premiacao-detalhes div {
+.premio-detalhes div {
   margin-bottom: 0.25rem;
 }
 
-.premiacao-detalhes strong {
-  color: #f6c700;
+.premio-detalhes strong {
+  color: #cccccc;
   font-weight: 600;
 }
 
 
 /* ============================================== */
-/*    Filme/Série                                 */
+/* Filme/Série                                    */
 /* ============================================== */
 
 .filmografia-titulo {
@@ -124,16 +147,20 @@
 .filme-personagem {
   font-style: italic;
   color: #aaaaaa;
+  /* CORREÇÃO: Removemos o prefixo 'como' para evitar inconsistência */
 }
 
+/* O bloco abaixo foi removido para consertar o erro de coerência:
 .filme-personagem::before {
   content: 'como ';
   font-style: normal;
   color: #999999;
 }
+*/
+
 
 /* ============================================== */
-/*    Back Link                                   */
+/* Back Link                                   */
 /* ============================================== */
 
 .back-link {

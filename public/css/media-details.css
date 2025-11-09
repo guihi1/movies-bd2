@@ -4,6 +4,13 @@ hr {
   margin: rem 0;
 }
 
+.mensagem-erro {
+  margin-top: 0rem;
+  font-style: italic;
+  color: #999999;
+  margin-right: 0.25rem;
+}
+
 /*-----------------------------------------------*/
 /* Mídia                                       */
 /*-----------------------------------------------*/
@@ -44,12 +51,13 @@ hr {
 /*-----------------------------------------------*/
 
 .cargo-titulo {
-  font-size: 1.25rem; /* Was 0.75rem, which is tiny */
+  font-size: 1.25rem;
+  font-weight: 400;
   color: #ffffff;
-  margin-top: 2rem;   /* Add space above this heading */
-  margin-bottom: 1rem; /* Add space below this heading */
+  margin-top: 3rem;
+  margin-bottom: 0rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #555555; /* Add a light separator */
+  border-bottom: 1px solid #555555;
 }
 
 .elenco-titulo {
@@ -96,14 +104,20 @@ hr {
   color: #ffffff;
 }
 
-.ator-personagem {
+.cargo-nome {
+  font-style: italic; 
+  color: #999999;
+  margin-right: 0.25rem;
+}
+
+.personagem-nome {
   color: #aaaaaa;
   margin-top: 0.25rem;
 }
 
-.ator-personagem::before {
+.personagem-nome::before {
   content: 'como ';
-  font-style: italic;
+  font-style: italic; 
   color: #999999;
   margin-right: 0.25rem;
 }

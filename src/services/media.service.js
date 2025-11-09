@@ -218,7 +218,11 @@ export const findSeasonsAndEpisodesByShowId = async (id) => {
 export const findActorsByMediaId = async (mediaId) => {
   try {
     const query = `
-      SELECT p.nome, atu.personagem, p.id
+      SELECT DISTINCT
+          p.id AS pessoa_id,
+          p.nome AS nome_ator,
+          p.data_de_nascimento,
+          atu.personagem
       FROM pessoa p
       JOIN ator ON p.id = ator.pessoa_id
       JOIN atuacao atu ON ator.id = atu.ator_id
@@ -240,7 +244,10 @@ export const findActorsByMediaId = async (mediaId) => {
 export const findDirectorsByMediaId = async (mediaId) => {
   try {
     const query = `
-      SELECT p.nome, p.id
+      SELECT DISTINCT
+          p.id AS pessoa_id,
+          p.nome AS nome_diretor,
+          p.data_de_nascimento
       FROM pessoa p
       JOIN diretor ON p.id = diretor.pessoa_id
       JOIN direcao dir ON diretor.id = dir.diretor_id
@@ -262,7 +269,10 @@ export const findDirectorsByMediaId = async (mediaId) => {
 export const findWritersByMediaId = async (mediaId) => {
   try {
     const query = `
-      SELECT p.nome, p.id
+      SELECT DISTINCT
+          p.id AS pessoa_id,
+          p.nome AS nome_roteirista,
+          p.data_de_nascimento
       FROM pessoa p
       JOIN roteirista ON p.id = roteirista.pessoa_id
       JOIN roteiro rot ON roteirista.id = rot.roteirista_id
@@ -284,7 +294,10 @@ export const findWritersByMediaId = async (mediaId) => {
 export const findProducersByMediaId = async (mediaId) => {
   try {
     const query = `
-      SELECT p.nome, p.id
+      SELECT DISTINCT
+          p.id AS pessoa_id,
+          p.nome AS nome_produtor,
+          p.data_de_nascimento
       FROM pessoa p
       JOIN pessoaprodutora ON p.id = pessoaprodutora.pessoa_id
       JOIN produz prod ON pessoaprodutora.id = prod.pessoa_produtora_id

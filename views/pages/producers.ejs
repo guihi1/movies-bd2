@@ -13,23 +13,23 @@
   <body>
     <%- include('../partials/navbar') %>
     <div class="container">
-      <h1>Atores (A - Z)</h1>
+      <h1>Pessoas Produtoras (A - Z)</h1>
 
-      <%initialLetters = Object.keys(atores).sort();
+      <%initialLetters = Object.keys(pessoasProdutoras).sort();
       if(initialLetters.length > 0) { initialLetters.forEach(letter => { const
-      actorsInSection = atores[letter]; %>
+      producersInSection = pessoasProdutoras[letter]; %>
 
       <section class="same-initial-section">
         <h2 id="letter-<%= letter %>" class="letter-title"><%= letter %></h2>
 
         <div class="objects-grid">
-          <% actorsInSection.forEach(actor => { %>
+          <% producersInSection.forEach(producer => { %>
           <div class="object-card">
             <h4>
-              <a href="person-details/<%= actor.id %>"> <%= actor.nome %> </a>
+              <a href="/person-details/<%= producer.id %>"> <%= producer.nome %> </a>
             </h4>
             <p>
-              <%= actor.local_de_nascimento ? actor.local_de_nascimento : 'N/A' %>
+              <%= producer.local_de_nascimento ? producer.local_de_nascimento : 'N/A' %>
             </p>
           </div>
           <% }); %>
@@ -37,7 +37,7 @@
       </section>
 
       <% }); %> <% } else { %>
-      <p>Nenhum ator encontrado no banco de dados.</p>
+      <p>Nenhuma pessa produtora encontrado no banco de dados.</p>
       <% } %>
     </div>
     <body></body>

@@ -15,7 +15,7 @@ export const showAllWritersPage = async (req, res) => {
     
     res.render('pages/writers', {
       pageTitle: 'RMGe: Roteiristas',
-      roteiristaes: writers,
+      roteiristas: writers,
     });
 
   } catch (error) {

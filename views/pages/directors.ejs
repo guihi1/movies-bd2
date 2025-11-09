@@ -13,23 +13,23 @@
   <body>
     <%- include('../partials/navbar') %>
     <div class="container">
-      <h1>Atores (A - Z)</h1>
+      <h1>Diretores (A - Z)</h1>
 
-      <%initialLetters = Object.keys(atores).sort();
+      <%initialLetters = Object.keys(diretores).sort();
       if(initialLetters.length > 0) { initialLetters.forEach(letter => { const
-      actorsInSection = atores[letter]; %>
+      directorsInSection = diretores[letter]; %>
 
       <section class="same-initial-section">
         <h2 id="letter-<%= letter %>" class="letter-title"><%= letter %></h2>
 
         <div class="objects-grid">
-          <% actorsInSection.forEach(actor => { %>
+          <% directorsInSection.forEach(director => { %>
           <div class="object-card">
             <h4>
-              <a href="person-details/<%= actor.id %>"> <%= actor.nome %> </a>
+              <a href="/person-details/<%= director.id %>"> <%= director.nome %> </a>
             </h4>
             <p>
-              <%= actor.local_de_nascimento ? actor.local_de_nascimento : 'N/A' %>
+              <%= director.local_de_nascimento ? director.local_de_nascimento : 'N/A' %>
             </p>
           </div>
           <% }); %>

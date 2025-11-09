@@ -35,9 +35,9 @@ export const findPersonByWriterId = async (roteiristaId) => {
 export const findAllWritersGrouped = async () => {
     try {
         const query =`
-          SELECT a.id, p.nome, p.local_de_nascimento 
-          FROM roteirista a
-          JOIN pessoa p ON a.pessoa_id = p.id
+          SELECT p.id, p.nome, p.local_de_nascimento 
+          FROM roteirista r
+          JOIN pessoa p ON r.pessoa_id = p.id
           ORDER BY p.nome;
         `;
         
@@ -78,7 +78,7 @@ export const findAllWritersGrouped = async () => {
 //     const query = `
 //       SELECT m.id, m.titulo, m.tipo, atu.personagem
 //       FROM midia m
-//       JOIN atuacao atu ON m.id = atu.midia_id
+//       JOIN roteiro atu ON m.id = atu.midia_id
 //       WHERE atu.roteirista_id = $1
 //       ORDER BY m.data_de_publicacao DESC;
 //     `;
@@ -97,7 +97,6 @@ export const findMediaByWriterId = async (roteiristaId) => {
         m.id AS midia_id,
         m.titulo,
         m.tipo,
-        atu.personagem,
         CASE 
           WHEN m.tipo = 'Filme' THEN NULL
           ELSE s.id
@@ -107,7 +106,7 @@ export const findMediaByWriterId = async (roteiristaId) => {
           ELSE s.nome
         END AS serie_nome
       FROM midia m
-      JOIN atuacao atu 
+      JOIN roteiro atu 
         ON m.id = atu.midia_id
       LEFT JOIN episodio e 
         ON m.id = e.midia_id
@@ -127,31 +126,66 @@ export const findMediaByWriterId = async (roteiristaId) => {
   }
 };
 
-export const findAwardsByWriterId = async (roteiristaId) => {
+export const findPlaysByPersonId = async (pessoaId) => {
   try {
     const query = `
       SELECT 
-        pr.id AS premio_id,
-        pr.nome AS nome_premio,
-        pr.ano,
-        pr.categoria,
-        pr.organizacao,
-        pr.descricao,
-        ia.id AS indicado_id,
-        a.personagem
-      FROM premiacao pr
-      JOIN indicado_atuacao ia 
-        ON ia.premiacao_id = pr.id
-      JOIN atuacao a 
-        ON ia.atuacao_id = a.id
-      WHERE a.roteirista_id = $1
-      ORDER BY pr.ano DESC;
+        m.id AS midia_id,
+        m.titulo,
+        m.tipo,
+        m.data_de_publicacao,
+        CASE 
+          WHEN m.tipo = 'Filme' THEN NULL
+          ELSE s.id
+        END AS serie_id,
+        CASE 
+          WHEN m.tipo = 'Filme' THEN NULL
+          ELSE s.nome
+        END AS serie_nome
+      FROM midia m
+      JOIN roteiro rot 
+        ON m.id = rot.midia_id
+      JOIN roteirista r
+        ON rot.id = r.id
+      LEFT JOIN episodio e 
+        ON m.id = e.midia_id
+      LEFT JOIN temporada t 
+        ON e.temporada_id = t.id
+      LEFT JOIN serie s 
+        ON t.serie_id = s.id
+      WHERE r.pessoa_id = $1 -- FILTRO PELO ID DA PESSOA
+      ORDER BY m.data_de_publicacao DESC;
     `;
-    const { rows } = await pool.query(query, [roteiristaId]);
+    
+    const { rows } = await pool.query(query, [pessoaId]);
     return rows;
   } catch (error) {
-    console.error(`Erro ao buscar premiações pelo ID do roteirista (${roteiristaId}):`, error.stack);
+    console.error(`Erro ao buscar roteiros pelo ID da pessoa (${pessoaId}):`, error.stack);
     throw error;
   }
 };
 
+export const findPlayAwardsByPersonId = async (pessoaId) => {
+  try {
+    const query = `
+      SELECT 
+        pr.id AS premio_id,
+        pr.nome,
+        pr.ano,
+        pr.categoria,
+        pr.organizacao,
+        pr.descricao
+      FROM premiacao pr
+      JOIN indicado_roteiro irot 
+        ON irot.premiacao_id = pr.id
+      JOIN roteirista r
+        ON irot.id = r.id
+      WHERE r.pessoa_id = $1; -- FILTRO PELO ID DA PESSOA
+    `;
+    const { rows } = await pool.query(query, [pessoaId]);
+    return rows;
+  } catch (error) {
+    console.error(`Erro ao buscar prêmios de roteiro pelo ID da pessoa (${pessoaId}):`, error.stack);
+    throw error;
+  }
+};

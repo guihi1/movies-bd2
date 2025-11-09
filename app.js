@@ -10,11 +10,7 @@ import producersRoutes from './src/routes/producers.routes.js';
 import movieDetailsRoutes from './src/routes/movie-details.routes.js';
 import episodeDetailsRoutes from './src/routes/episode-details.routes.js';
 import showDetailsRoutes from './src/routes/show-details.routes.js';
-import actorDetailsRoutes from './src/routes/actor-details.routes.js'
-import directorDetailsRoutes from './src/routes/director-details.routes.js'
-import writerDetailsRoutes from './src/routes/writer-details.routes.js'
-import producerDetailsRoutes from './src/routes/producer-details.routes.js'
-import actorDetailsRoutes from './src/routes/actor-details.routes.js';
+import personDetailsRoutes from './src/routes/person-details.routes.js'
 import reviewRouter from './src/routes/review.routes.js';
 import { fileURLToPath } from 'url';
 
@@ -37,10 +33,7 @@ app.use('/producers', producersRoutes);
 app.use('/movie-details', movieDetailsRoutes);
 app.use('/show-details', showDetailsRoutes);
 app.use('/show', episodeDetailsRoutes);
-app.use('/actor-details', actorDetailsRoutes);
-app.use('/director-details', directorDetailsRoutes);
-app.use('/writer-details', writerDetailsRoutes);
-app.use('/producer-details', producerDetailsRoutes);
+app.use('/person-details', personDetailsRoutes);
 app.use('/review', reviewRouter);
 
 const PORT = process.env.PORT || 3000;

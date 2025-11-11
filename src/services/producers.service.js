@@ -134,7 +134,7 @@ export const findProductionsByPersonId = async (pessoaId) => {
         ON e.temporada_id = t.id
       LEFT JOIN serie s 
         ON t.serie_id = s.id
-      WHERE pp.pessoa_id = $1 -- FILTRO PELO ID DA PESSOA
+      WHERE pp.pessoa_id = $1
       ORDER BY m.data_de_publicacao DESC;
     `;
     

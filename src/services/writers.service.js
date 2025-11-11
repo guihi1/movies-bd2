@@ -146,7 +146,7 @@ export const findPlaysByPersonId = async (pessoaId) => {
       JOIN roteiro rot 
         ON m.id = rot.midia_id
       JOIN roteirista r
-        ON rot.id = r.id
+        ON rot.roteirista_id = r.id
       LEFT JOIN episodio e 
         ON m.id = e.midia_id
       LEFT JOIN temporada t 

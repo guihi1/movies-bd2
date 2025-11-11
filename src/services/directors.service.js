@@ -173,7 +173,7 @@ export const findDirectionByPersonId = async (pessoaId) => {
       JOIN direcao dir 
         ON m.id = dir.midia_id
       JOIN diretor d
-        ON dir.id = d.id
+        ON dir.diretor_id = d.id
       LEFT JOIN episodio e 
         ON m.id = e.midia_id
       LEFT JOIN temporada t 

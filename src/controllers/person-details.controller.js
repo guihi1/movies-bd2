@@ -17,7 +17,6 @@ export const showPersonPage = async (req, res) => {
             premiosAtuacao,
             premiosDirecao,
             premiosRoteiro,
-            premiosProducao
         ] = await Promise.all([
             findPersonById(pessoaId),
             findActingsByPersonId(pessoaId),

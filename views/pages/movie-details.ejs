@@ -31,6 +31,9 @@
           <strong>Duração:</strong>
           <%= filme.tempo_de_duracao %> minutos
         </p>
+        <p><strong>Gênero:</strong>
+          <%= genero && genero.length > 0 ? genero.map(g => g.genero).join(', ') : "N/A" %>
+        </p>       
         <p><strong>Faturamento:</strong> $ <%= filme.faturamento %>
         </p>
         <p>

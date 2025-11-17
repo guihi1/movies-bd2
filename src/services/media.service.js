@@ -452,3 +452,21 @@ export const findReviewsByMediaId = async (mediaId) => {
     throw error;
   }
 };
+
+export const findGenreByMediaId = async (mediaId) => {
+  try {
+    const query = `
+      SELECT gen.genero
+      FROM genero gen
+      WHERE gen.midia_id = $1
+    `;
+    const { rows } = await pool.query(query, [mediaId]);
+    return rows;
+  } catch (error) {
+    console.error(
+      `Erro ao buscar generos por ID de mídia (${mediaId}):`,
+      error.stack
+    );
+    throw error;
+  }
+};

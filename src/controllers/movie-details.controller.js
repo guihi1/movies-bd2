@@ -1,15 +1,16 @@
-import { findMovieById, findActorsByMediaId, findDirectorsByMediaId, findWritersByMediaId, findProducersByMediaId, findReviewsByMediaId } from '../services/media.service.js'
+import { findMovieById, findActorsByMediaId, findDirectorsByMediaId, findWritersByMediaId, findProducersByMediaId, findReviewsByMediaId, findGenreByMediaId } from '../services/media.service.js'
 
 export const showMoviePage = async (req, res) => {
   try {
     const { id } = req.params;
-    const [movie, actors, directors, wirters, producers, reviews] = await Promise.all([
+    const [movie, actors, directors, wirters, producers, reviews, genre] = await Promise.all([
       findMovieById(id),
       findActorsByMediaId(id),
       findDirectorsByMediaId(id),
       findWritersByMediaId(id),
       findProducersByMediaId(id),
-      findReviewsByMediaId(id)
+      findReviewsByMediaId(id),
+      findGenreByMediaId(id)
     ]);
 
     if (!movie) {
@@ -22,6 +23,7 @@ export const showMoviePage = async (req, res) => {
 
     res.render('pages/movie-details', {
       filme: movie,
+      genero: genre,
       atores: actors,
       diretores: directors,
       roteiristas: wirters,

@@ -1,15 +1,16 @@
-import { findShowById, findActorsByShowId, findDirectorsByShowId, findWritersByShowId, findProducersByShowId, findSeasonsAndEpisodesByShowId } from '../services/media.service.js'
+import { findShowById, findActorsByShowId, findDirectorsByShowId, findWritersByShowId, findProducersByShowId, findSeasonsAndEpisodesByShowId, findGenreByMediaId } from '../services/media.service.js'
 
 export const showShowPage = async (req, res) => {
   try {
     const { id } = req.params;
-    const [show, actors, directors, wirters, producers, seasonsAndEpisodes] = await Promise.all([
+    const [show, actors, directors, wirters, producers, seasonsAndEpisodes, genre] = await Promise.all([
       findShowById(id),
       findActorsByShowId(id),
       findDirectorsByShowId(id),
       findWritersByShowId(id),
       findProducersByShowId(id),
-      findSeasonsAndEpisodesByShowId(id)
+      findSeasonsAndEpisodesByShowId(id),
+      findGenreByMediaId(id)
     ]);
 
     if (!show) {
@@ -22,6 +23,7 @@ export const showShowPage = async (req, res) => {
 
     res.render('pages/show-details', {
       serie: show,
+      genero:genre,
       atores: actors,
       diretores: directors,
       roteiristas: wirters,

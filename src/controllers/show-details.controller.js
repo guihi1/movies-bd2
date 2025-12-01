@@ -1,4 +1,4 @@
-import { findShowById, findActorsByShowId, findDirectorsByShowId, findWritersByShowId, findProducersByShowId, findSeasonsAndEpisodesByShowId, findGenreByMediaId } from '../services/media.service.js'
+import { findShowById, findActorsByShowId, findDirectorsByShowId, findWritersByShowId, findProducersByShowId, findSeasonsAndEpisodesByShowId, findGenreByShowId } from '../services/media.service.js'
 
 export const showShowPage = async (req, res) => {
   try {
@@ -10,9 +10,9 @@ export const showShowPage = async (req, res) => {
       findWritersByShowId(id),
       findProducersByShowId(id),
       findSeasonsAndEpisodesByShowId(id),
-      findGenreByMediaId(id)
+      findGenreByShowId(id)
     ]);
-
+    
     if (!show) {
       return res.status(404).render('pages/error', {
         statusCode: 404,

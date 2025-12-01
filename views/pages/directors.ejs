@@ -26,7 +26,7 @@
           <% directorsInSection.forEach(director => { %>
           <div class="object-card">
             <h4>
-              <a href="/person-details/<%= director.id %>"> <%= director.nome %> </a>
+              <a href="/person-details/<%= director._id %>"> <%= director.nome %> </a>
             </h4>
             <p>
               <%= director.local_de_nascimento ? director.local_de_nascimento : 'N/A' %>

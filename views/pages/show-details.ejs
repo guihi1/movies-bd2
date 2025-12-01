@@ -25,7 +25,7 @@
         </p>
         <p>
           <strong>Temporadas:</strong>
-          <%= serie.numero_de_temporadas %>
+          <%= temporadas ? temporadas.length : 0 %>
         </p>
         <p><strong>Gênero:</strong>
           <%= genero && genero.length > 0 ? genero.map(g => g.genero).join(', ') : "N/A" %>
@@ -60,7 +60,7 @@
               </span>
               <span class="episodio-titulo">
                 <a
-                  href="/show/<%= temporada.serie_id %>/episode/<%= episodio.id %>"
+                  href="/show/<%= temporada.serie_id %>/episode/<%= episodio._id %>"
                 >
                   <%= episodio.titulo %>
                 </a>

@@ -4,6 +4,8 @@ export const showAllProducersPage = async (req, res) => {
   try {
     const [producers] = await Promise.all([findAllProducersGrouped()]);
 
+    console.log(producers);
+
     if (!producers) {
       return res.status(404).render('pages/error', {
         statusCode: 404,

@@ -451,3 +451,26 @@ export const findGenreByMediaId = async (mediaId) => {
     throw error;
   }
 };
+
+export const findGenreByShowId = async (serieId) => {
+  try {
+    const db = getDb();
+    
+    // 1. Buscamos na coleção 'series', não 'midias'
+    const show = await db.collection('series').findOne(
+      { _id: new ObjectId(serieId) },
+      // 2. O campo agora se chama 'genero' (conforme sua última solicitação)
+      { projection: { _id: 0, generos: 1 } } 
+    );
+
+    // Verifica se a série existe e se tem o array de gêneros
+    if (!show || !show.generos) return [];
+
+    // Retorna formatado como você queria
+    return show.generos.map(g => ({ genero: g }));
+
+  } catch (error) {
+    console.error(`Erro ao buscar gêneros da série (${serieId}):`, error);
+    throw error;
+  }
+};

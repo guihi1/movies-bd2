@@ -26,7 +26,7 @@
           <% moviesInSection.forEach(movie => { %>
           <div class="object-card">
             <h4>
-              <a href="/movie-details/<%= movie.id %>"> <%= movie.titulo %> </a>
+              <a href="/movie-details/<%= movie._id %>"> <%= movie.titulo %> </a>
             </h4>
             <p>
               <%= movie.pais_de_origem %> (<%= movie.data_de_publicacao ?

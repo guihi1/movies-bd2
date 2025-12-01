@@ -26,7 +26,7 @@
           <% actorsInSection.forEach(actor => { %>
           <div class="object-card">
             <h4>
-              <a href="person-details/<%= actor.id %>"> <%= actor.nome %> </a>
+              <a href="person-details/<%= actor._id %>"> <%= actor.nome %> </a>
             </h4>
             <p>
               <%= actor.local_de_nascimento ? actor.local_de_nascimento : 'N/A' %>

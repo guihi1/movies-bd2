@@ -26,7 +26,7 @@
           <% showsInSection.forEach(show => { %>
           <div class="object-card">
             <h4>
-              <a href="/show-details/<%= show.id %>"> <%= show.nome %> </a>
+              <a href="/show-details/<%= show._id %>"> <%= show.nome %> </a>
             </h4>
             <% 
                 const anoFim = show.ano_de_fim ? show.ano_de_fim : 'Presente';

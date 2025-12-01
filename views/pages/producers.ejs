@@ -26,7 +26,7 @@
           <% producersInSection.forEach(producer => { %>
           <div class="object-card">
             <h4>
-              <a href="/person-details/<%= producer.id %>"> <%= producer.nome %> </a>
+              <a href="/person-details/<%= producer._id %>"> <%= producer.nome %> </a>
             </h4>
             <p>
               <%= producer.local_de_nascimento ? producer.local_de_nascimento : 'N/A' %>

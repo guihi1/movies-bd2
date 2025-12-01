@@ -1,17 +1,17 @@
-import { Pool } from 'pg';
+import { MongoClient } from 'mongodb';
 import 'dotenv/config';
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+const client = new MongoClient(process.env.MONGODB_URL);
 
-  ssl: {
-    rejectUnauthorized: false
+async function connect() {
+  try {
+    await client.connect();
+    console.log("Conectado ao MongoDB com sucesso.");
+    return client.db();
+  } catch (err) {
+    console.error("Erro ao conectar:", err);
+    process.exit(-1);
   }
-});
+}
 
-pool.on('error', (err, client) => {
-  console.error('Unexpected error', err);
-  process.exit(-1);
-});
-
-export default pool;
+export { client, connect };

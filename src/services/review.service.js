@@ -1,34 +1,47 @@
-import pool from "../config/db.js";
+import { client } from '../config/db.js';
+import { ObjectId } from 'mongodb';
 
 export const createUserAndReview = async (nome_usuario, comentario, nota, midia_id) => {
-  const client = await pool.connect();
+  const session = client.startSession();
 
   try {
-    await client.query('BEGIN');
+    session.startTransaction();
 
-    const userQuery = `
-      INSERT INTO usuario (nome_usuario, email, senha)
-      VALUES ($1, $2, $3)
-      RETURNING id;
-    `;
+    const db = client.db();
 
-    const userResult = await client.query(userQuery, [nome_usuario, Math.random(), 'senhasecreta']);
-    const newUserId = userResult.rows[0].id;
+    const userResult = await db.collection('usuarios').insertOne(
+      {
+        nome_usuario: nome_usuario,
+        email: `random_${Math.random()}@email.com`,
+        senha: 'senhasecreta'
+      },
+      { session }
+    );
 
-    const reviewQuery = `
-      INSERT INTO avalia (comentario, nota, user_id, midia_id)
-      VALUES ($1, $2, $3, $4);
-    `;
+    const newUserId = userResult.insertedId;
 
-    await client.query(reviewQuery, [comentario, nota, newUserId, midia_id]);
-    await client.query('COMMIT');
+    await db.collection('avaliacoes').insertOne(
+      {
+        comentario: comentario,
+        nota: nota,
+        user_id: newUserId,
+        midia_id: new ObjectId(midia_id),
+        data: new Date()
+      },
+      { session }
+    );
+
+    await session.commitTransaction();
+    console.log('Transação concluída com sucesso.');
 
     return { novoUsuarioId: newUserId };
+
   } catch (error) {
-    await client.query('ROLLBACK');
-    console.error('Erro na transação, ROLLBACK executado:', error);
+    console.error('Erro na transação, abortando:', error);
+    await session.abortTransaction();
     throw new Error('Não foi possível criar o usuário e a avaliação.');
+
   } finally {
-    client.release();
+    await session.endSession();
   }
 };

@@ -1,148 +1,139 @@
-import pool from '../config/db.js';
+import { client } from '../config/db.js';
+import { ObjectId } from 'mongodb';
+
+const getDb = () => client.db();
 
 export const findAllProducers = async () => {
   try {
-    const query = `
-      SELECT a.id, p.nome 
-      FROM pessoaprodutora a
-      JOIN pessoa p ON a.pessoa_id = p.id
-      ORDER BY p.nome;
-    `;
-    const { rows } = await pool.query(query);
-    return rows;
+    const db = getDb();
+    const producers = await db.collection('pessoas')
+      .find({ funcoes: 'Produtor' })
+      .project({ id: '$_id', nome: 1, _id: 0 })
+      .sort({ nome: 1 })
+      .toArray();
+
+    return producers;
   } catch (error) {
-    console.error('Erro ao buscar todas as pessoas produtoras:', error.stack);
+    console.error('Erro ao buscar todas as pessoas produtoras:', error);
     throw error;
   }
 };
 
 export const findPersonByProducerId = async (pessoaProdutoraId) => {
   try {
-    const query = `
-      SELECT p.id, p.nome, p.data_de_nascimento, p.altura, p.local_de_nascimento
-      FROM pessoa p
-      JOIN pessoaprodutora a ON p.id = a.pessoa_id
-      WHERE a.id = $1;
-    `;
-    const { rows } = await pool.query(query, [pessoaProdutoraId]);
-    return rows[0] || null;
+    const db = getDb();
+    const person = await db.collection('pessoas').findOne(
+      { _id: new ObjectId(pessoaProdutoraId) },
+      {
+        projection: {
+          id: '$_id',
+          nome: 1,
+          data_de_nascimento: 1,
+          altura: 1,
+          local_de_nascimento: 1,
+          _id: 0
+        }
+      }
+    );
+    return person || null;
   } catch (error) {
-    console.error(`Erro ao buscar dados de pessoa pelo ID do pessoaprodutora (${pessoaProdutoraId}):`, error.stack);
+    console.error(`Erro ao buscar dados de pessoa pelo ID (${pessoaProdutoraId}):`, error);
     throw error;
   }
 };
 
 export const findAllProducersGrouped = async () => {
-    try {
-        const query =`
-          SELECT p.id, p.nome, p.local_de_nascimento 
-          FROM pessoaprodutora ppr
-          JOIN pessoa p ON ppr.pessoa_id = p.id
-          ORDER BY p.nome;
-        `;
-        
-        const { rows } = await pool.query(query);
+  try {
+    const db = getDb();
 
-        const groupedProducers = {};
+    const producers = await db.collection('pessoas')
+      .find({ funcoes: 'Produtor' })
+      .project({ id: '$_id', nome: 1, local_de_nascimento: 1 })
+      .sort({ nome: 1 })
+      .toArray();
 
-        rows.forEach(producer => {
-            const firstLetter = producer.nome
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .charAt(0)
-                .toUpperCase();
-            if (firstLetter >= 'A' && firstLetter <= 'Z') {
-                if (!groupedProducers[firstLetter]) {
-                    groupedProducers[firstLetter] = [];
-                }
-                
-                groupedProducers[firstLetter].push(producer);
-            }
-            else {
-              if(!groupedProducers['#']){
-                groupedProducers['#'] = [];
-              }
-              groupedProducers['#'].push(producer);
-            }
-        });
+    const groupedProducers = {};
 
-        return groupedProducers;
-    } catch (error) {
-        console.error('Erro ao buscar e agrupar todas as pessoaprodutoras:', error.stack);
-        throw error;
+    producers.forEach(producer => {
+      const firstLetter = producer.nome
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .charAt(0)
+        .toUpperCase();
+
+      if (firstLetter >= 'A' && firstLetter <= 'Z') {
+        if (!groupedProducers[firstLetter]) {
+          groupedProducers[firstLetter] = [];
+        }
+        groupedProducers[firstLetter].push(producer);
+      }
+      else {
+        if (!groupedProducers['#']) {
+          groupedProducers['#'] = [];
+        }
+        groupedProducers['#'].push(producer);
+      }
+    });
+
+    return groupedProducers;
+  } catch (error) {
+    console.error('Erro ao buscar e agrupar todas as pessoaprodutoras:', error);
+    throw error;
+  }
+};
+
+const getProductionsByPersonId = async (id) => {
+  const db = getDb();
+  const pId = new ObjectId(id);
+
+  const pipeline = [
+    {
+      $match: { "produtores.pessoa_id": pId }
+    },
+
+    {
+      $lookup: {
+        from: 'series',
+        localField: 'info_serie.serie_id',
+        foreignField: '_id',
+        as: 'serie_info'
+      }
+    },
+
+    { $sort: { data_de_publicacao: -1 } },
+
+    {
+      $project: {
+        midia_id: '$_id',
+        titulo: 1,
+        tipo: 1,
+        data_de_publicacao: 1,
+
+        serie_id: { $arrayElemAt: ['$serie_info._id', 0] },
+        serie_nome: { $arrayElemAt: ['$serie_info.nome', 0] },
+
+        _id: 0
+      }
     }
+  ];
+
+  return await db.collection('midias').aggregate(pipeline).toArray();
 };
 
 export const findMediaByProducerId = async (pessoaProdutoraId) => {
   try {
-    const query = `
-      SELECT 
-        m.id AS midia_id,
-        m.titulo,
-        m.tipo,
-        CASE 
-          WHEN m.tipo = 'Filme' THEN NULL
-          ELSE s.id
-        END AS serie_id,
-        CASE 
-          WHEN m.tipo = 'Filme' THEN NULL
-          ELSE s.nome
-        END AS serie_nome
-      FROM midia m
-      LEFT JOIN episodio e 
-        ON m.id = e.midia_id
-      LEFT JOIN temporada t 
-        ON e.temporada_id = t.id
-      LEFT JOIN serie s 
-        ON t.serie_id = s.id
-      WHERE atu.pessoaprodutora_id = $1
-      ORDER BY m.data_de_publicacao DESC;
-    `;
-    
-    const { rows } = await pool.query(query, [pessoaProdutoraId]);
-    return rows;
+    return await getProductionsByPersonId(pessoaProdutoraId);
   } catch (error) {
-    console.error(`Erro ao buscar filmografia pelo ID do pessoaprodutora (${pessoaProdutoraId}):`, error.stack);
+    console.error(`Erro ao buscar filmografia pelo ID do produtor (${pessoaProdutoraId}):`, error);
     throw error;
   }
 };
 
 export const findProductionsByPersonId = async (pessoaId) => {
   try {
-    const query = `
-      SELECT 
-        m.id AS midia_id,
-        m.titulo,
-        m.tipo,
-        m.data_de_publicacao,
-        CASE 
-          WHEN m.tipo = 'Filme' THEN NULL
-          ELSE s.id
-        END AS serie_id,
-        CASE 
-          WHEN m.tipo = 'Filme' THEN NULL
-          ELSE s.nome
-        END AS serie_nome
-      FROM midia m
-      JOIN produz pz 
-        ON m.id = pz.midia_id
-      JOIN pessoaprodutora pp
-        ON pz.pessoa_produtora_id = pp.id 
-      LEFT JOIN episodio e 
-        ON m.id = e.midia_id
-      LEFT JOIN temporada t 
-        ON e.temporada_id = t.id
-      LEFT JOIN serie s 
-        ON t.serie_id = s.id
-      WHERE pp.pessoa_id = $1
-      ORDER BY m.data_de_publicacao DESC;
-    `;
-    
-    const { rows } = await pool.query(query, [pessoaId]);
-    return rows;
+    return await getProductionsByPersonId(pessoaId);
   } catch (error) {
-    console.error(`Erro ao buscar produções pelo ID da pessoa (${pessoaId}):`, error.stack);
+    console.error(`Erro ao buscar produções pelo ID da pessoa (${pessoaId}):`, error);
     throw error;
   }
 };
-

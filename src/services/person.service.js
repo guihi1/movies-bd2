@@ -1,16 +1,30 @@
-import pool from '../config/db.js';
+import { client } from '../config/db.js';
+import { ObjectId } from 'mongodb';
 
 export const findPersonById = async (pessoaId) => {
   try {
-    const query = `
-      SELECT p.id, p.nome, p.data_de_nascimento, p.altura, p.local_de_nascimento
-      FROM pessoa p
-      WHERE p.id = $1;
-    `;
-    const { rows } = await pool.query(query, [pessoaId]);
-    return rows[0] || null;
+    const db = client.db();
+
+    const person = await db.collection('pessoas').findOne(
+      { _id: new ObjectId(pessoaId) },
+      {
+        projection: {
+          nome: 1,
+          data_de_nascimento: 1,
+          altura: 1,
+          local_de_nascimento: 1
+        }
+      }
+    );
+
+    if (person) {
+      person.id = person._id;
+    }
+
+    return person || null;
+
   } catch (error) {
-    console.error(`Erro ao buscar dados de pessoa pelo ID (${pessoaId}):`, error.stack);
+    console.error(`Erro ao buscar dados de pessoa pelo ID (${pessoaId}):`, error);
     throw error;
   }
 };

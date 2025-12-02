@@ -66,8 +66,36 @@
         <p>Este  episodio ainda não possui avaliações.</p>
         <% } %>
       </div>
+
+      <h3 class="review-form-titulo">Deixe sua avaliação</h3>
+
+      <form method="POST" action="/review/create" class="review-form">
+        <input type="hidden" name="id" value="<%= episodio._id %>" />
+
+        <div class="form-group">
+          <label for="name" class="form-label">Nome de usuário</label>
+          <input class="form-control" type="text" name="nome_usuario" id="name"
+            placeholder="Digite o seu nome de usuário" required />
+        </div>
+
+        <div class="form-group">
+          <label for="review" class="form-label">Avaliação</label>
+          <input type="text" name="comentario" id="review" placeholder="Digite sua avaliação" class="form-control"
+            required />
+        </div>
+
+        <div class="form-group">
+          <label for="rating" class="form-label">Nota</label>
+          <input class="form-control" type="text" id="rating" name="nota" placeholder="Digite sua nota (ex: 8.5)" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Enviar Avaliação</button>
+      </form>
+
       <a href="/" class="back-link">← Voltar para a lista</a>
     </div>
+
+    
     
   </body>
 </html>

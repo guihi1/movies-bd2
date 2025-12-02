@@ -3,6 +3,6 @@ import { showEpisodePage } from '../controllers/episode-details.controller.js';
 
 const router = express.Router();
 
-router.get('/:showId/episode/:episodeId', showEpisodePage);
+router.get('/:id', showEpisodePage);
 
 export default router;

@@ -28,7 +28,7 @@ export const showMoviePage = async (req, res) => {
       diretores: directors,
       roteiristas: wirters,
       produtores: producers,
-      pageTitle: movie.nome,
+      pageTitle: movie.titulo,
       avaliacoes: reviews
     });
 

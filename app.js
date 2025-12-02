@@ -32,7 +32,7 @@ app.use('/writers', writersRoutes);
 app.use('/producers', producersRoutes);
 app.use('/movie-details', movieDetailsRoutes);
 app.use('/show-details', showDetailsRoutes);
-app.use('/show', episodeDetailsRoutes);
+app.use('/episode-details', episodeDetailsRoutes);
 app.use('/person-details', personDetailsRoutes);
 app.use('/review', reviewRouter);
 

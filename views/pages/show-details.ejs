@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/media-details.css" />
     <link rel="icon" type="image/png" href="/images/Logo_RMGe_icon.png">
-    <title><%= pageTitle %></title>
+    <title>
+      RMGe: <%= pageTitle %> - Série
+    </title>
   </head>
 
   <body>
@@ -60,7 +62,7 @@
               </span>
               <span class="episodio-titulo">
                 <a
-                  href="/show/<%= temporada.serie_id %>/episode/<%= episodio._id %>"
+                  href="/episode-details/<%= episodio.id %>"
                 >
                   <%= episodio.titulo %>
                 </a>

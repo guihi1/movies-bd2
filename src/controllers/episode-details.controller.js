@@ -1,35 +1,36 @@
 import { findMovieById, findActorsByMediaId, findDirectorsByMediaId, findWritersByMediaId, findProducersByMediaId, findReviewsByMediaId, findGenreByMediaId} from '../services/media.service.js'
+
 export const showEpisodePage = async (req, res) => {
   try {
-      const { episodeId } = req.params;
-      const [movie, actors, directors, wirters, producers, reviews, genre] = await Promise.all([
-        findMovieById(episodeId),
-        findActorsByMediaId(episodeId),
-        findDirectorsByMediaId(episodeId),
-        findWritersByMediaId(episodeId),
-        findProducersByMediaId(episodeId),
-        findReviewsByMediaId(episodeId),
-        findGenreByMediaId(episodeId)
-      ]);
-  
-      if (!movie) {
-        return res.status(404).render('pages/error', {
-          statusCode: 404,
-          message: 'Série não encontrada',
-          description: 'O filme que você está procurando não existe.'
-        });
-      }
-  
-      res.render('pages/movie-details', {
-        filme: movie,
-        genero: genre,
-        atores: actors,
-        diretores: directors,
-        roteiristas: wirters,
-        produtores: producers,
-        pageTitle: movie.nome,
-        avaliacoes: reviews
+    const { id } = req.params;
+    const [episode, actors, directors, wirters, producers, reviews, genre] = await Promise.all([
+      findMovieById(id),
+      findActorsByMediaId(id),
+      findDirectorsByMediaId(id),
+      findWritersByMediaId(id),
+      findProducersByMediaId(id),
+      findReviewsByMediaId(id),
+      findGenreByMediaId(id)
+    ]);
+
+    if (!episode) {
+      return res.status(404).render('pages/error', {
+        statusCode: 404,
+        message: 'Série não encontrada',
+        description: 'O filme que você está procurando não existe.'
       });
+    }
+
+    res.render('pages/episode-details', {
+      episodio: episode,
+      genero: genre,
+      atores: actors,
+      diretores: directors,
+      roteiristas: wirters,
+      produtores: producers,
+      pageTitle: episode.titulo,
+      avaliacoes: reviews
+    });
   
     } catch (error) {
       res.status(500).render('pages/error', {
